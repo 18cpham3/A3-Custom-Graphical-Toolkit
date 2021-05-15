@@ -12,7 +12,8 @@ var MyToolkit = (function() {
         
         // create button
         var btn = draw.rect(80,35).fill("#BC4E76");
-        var text = draw.text("Button 1").fill('#F6F3F7').move(12,8);
+        var txt = draw.text("Button 1").fill('#F6F3F7').move(18,10);
+        
 
         
         // customize button
@@ -20,7 +21,8 @@ var MyToolkit = (function() {
 
         // add to button group
         btnGroup.add(btn);
-        btnGroup.add(text);
+        btnGroup.add(txt);
+        txt.font('middle');
         btnGroup.move(1,5);
         ;
         
@@ -30,23 +32,43 @@ var MyToolkit = (function() {
         })
         btnGroup.mouseout(function(){
             btn.stroke({ width: 0, linecap: 'round', linejoin: 'round' }).fill("#BC4E76")
-            text.fill("white");
+            txt.fill("white");
         })
         btnGroup.mouseup(function(){
             btn.fill({ color: 'orange'})
         })
         btnGroup.click(function(event){
             btn.fill({ color: '#FA9189'}).stroke({ color:"#BC4E76", width: 2, linecap: 'round', linejoin: 'round' }).fill("white")
-            text.fill("#BC4E76");
+            txt.fill("#BC4E76");
             if(clickEvent != null)
                 clickEvent(event)
         })
         return {
+            setText: function(text){
+                txt.text(text);
+                btn.width();
+                // change 
+                btn.size(txt.length() + 40,40)
+            },
             move: function(x, y) {
-                btn.move(x, y);
+                btnGroup.move(x, y);
+            },
+            moveText: function(x, y) {
+                btnGroup.move(x, y);
             },
             onclick: function(eventHandler){
                 clickEvent = eventHandler
+            }, 
+            setColor: function(color){
+                btn.fill(color);
+                btnGroup.mouseout(function(){
+                    btn.stroke({ width: 0, linecap: 'round', linejoin: 'round' }).fill(color)
+                    txt.fill("white");
+                })
+                btnGroup.click(function(event){
+                    btn.fill({ color: '#FA9189'}).stroke({ color:color, width: 2, linecap: 'round', linejoin: 'round' }).fill("white")
+                    txt.fill(color);
+                })
             }
         }
     }
