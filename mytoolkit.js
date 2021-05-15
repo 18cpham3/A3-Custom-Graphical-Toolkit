@@ -12,7 +12,7 @@ var MyToolkit = (function() {
         
         // create button
         var btn = draw.rect(80,35).fill("#BC4E76");
-        var txt = draw.text("Button 1").fill('#F6F3F7').move(18,10);
+        var txt = draw.text("Button 1").fill('#F6F3F7').move(12,8);
         
 
         
@@ -48,12 +48,9 @@ var MyToolkit = (function() {
                 txt.text(text);
                 btn.width();
                 // change 
-                btn.size(txt.length() + 40,40)
+                btn.size(txt.length() + 30,35)
             },
             move: function(x, y) {
-                btnGroup.move(x, y);
-            },
-            moveText: function(x, y) {
                 btnGroup.move(x, y);
             },
             onclick: function(eventHandler){
@@ -76,39 +73,89 @@ var MyToolkit = (function() {
     // Checkbox Widget
     var Checkbox = function() {
         var draw = SVG().addTo('body').size('100%','100%');
-        var checkBoxGroup = draw.group()
+        var checkbox = draw.group()
+        var checkBox1 = draw.group()
+        var checkBox2 = draw.group()
+        var check = draw.group()
         var clickEvent = null;
+        var check;
+
 
         // checkbox text
-        var textpath = draw.text('Checkbox item 1').move(33, 8);
-        var textpath2 = draw.text('Checkbox item 1').move(33, 50);
+        var txt = draw.text('Checkbox item 1').move(33, 8);
+        var txt2 = draw.text('Checkbox item 2').move(33, 50);
 
         // create checkbox
-        var checkBox = draw.rect(25,25).stroke({ color:"pink", width: 3, linecap: 'round', linejoin: 'round' }).fill("white");
-        var line2 = draw.line(0, 18, 18, 0).move(3.5, 3.5)
-        var line = draw.line(0, 0, 18, 18).move(3.5, 3.5)
-
-        var checkBox2 = draw.rect(25,25).stroke({ color:"pink", width: 4, linecap: 'round', linejoin: 'round' }).fill("white").move(0, 40);
+        var box = draw.rect(25,25).stroke({ color:"#BC4E76", width: 3, linecap: 'round', linejoin: 'round' }).fill("white");
+        var box2 = draw.rect(25,25).stroke({ color:"#BC4E76", width: 3, linecap: 'round', linejoin: 'round' }).fill("white").move(0, 40);
+        var line = draw.line(0, 0, 18, 18).move(4, 3.5).stroke({ color: '#A6C9C6', width: 2, linecap: 'round' })
+        var line2 = draw.line(0, 18, 18, 0).move(4, 3.5).stroke({ color: '#A6C9C6', width: 2, linecap: 'round' })
         
-        
-
         // customize textbox
         //#7594BD
-        line.stroke({ color: '#A6C9C6', width: 3, linecap: 'round' })
-        line2.stroke({ color: '#A6C9C6', width: 3, linecap: 'round' })
-        checkBox.radius(2);
-        checkBox2.radius(2);
+        box.radius(2);
+        box2.radius(2);
+
+        // group checkbox
+        
+        check.add(line);
+        check.add(line2);
+
+        checkBox1.add(box);
+        checkBox2.add(box2);
+
+        checkBox1.add(txt);
+        checkBox2.add(txt2);
+
+        checkBox1.add(check);
+        checkbox.add(checkBox1)
+        checkbox.add(checkBox2)
+        checkbox.move(20,20);
+        
+        
     //[30,40], [50,10], [70,40], [50,60], [30,40]
     // var polyline = draw.polyline([[30,40], [40,10], [50,40]])
     // polyline.fill('#BC4E76').move(20, 10)
     // polyline.stroke({ width: 4, linecap: 'round', linejoin: 'round' })
+
+        // callbacks
+
+        // callbacks
+        checkBox1.mouseover(function(){
+            box.stroke({color: 'pink', width: 3, linecap: 'round', linejoin: 'round' })
+            line.stroke({ color:"silver", width: 2, linecap: 'round', linejoin: 'round' }).fill("white");
+            line2.stroke({ color:"silver", width: 2, linecap: 'round', linejoin: 'round' }).fill("white");
+        })
+        checkBox1.mouseout(function(){
+            box.stroke({ color:"#BC4E76", width: 3, linecap: 'round', linejoin: 'round' }).fill("white");
+            line.stroke({ color: '#A6C9C6', width: 2, linecap: 'round' })
+            line2.stroke({ color: '#A6C9C6', width: 2, linecap: 'round' })
+            
+        })
+        // btnGroup.mouseup(function(){
+        //     btn.fill({ color: 'orange'})
+        // })
+        checkBox1.click(function(event){
+            // console.log(check.visible());
+            if(check.visible() == true){
+                check.hide();
+            }
+            else{
+                check.show();
+            }
+
+
+            
+            if(clickEvent != null)
+                clickEvent(event)
+        })
         return{
-            // move: function(x, y) {
-            //     btn.move(x, y);
-            // },
-            // onclick: function(eventHandler){
-            //     clickEvent = eventHandler
-            // }
+            move: function(x, y) {
+                checkBox.move(x, y);
+            },
+            onclick: function(eventHandler){
+                clickEvent = eventHandler
+            }
         }
     }
 
