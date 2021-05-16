@@ -21,7 +21,7 @@ checkbox.setText("Write svg checkbox code")
 // });
 
 // Mytoolkit radiobutton
-var radiobuttons= new MyToolkit.Radiobuttons;
+var radiobuttons= new MyToolkit.Radiobuttons(2);
 
 // Mytoolkit textbox
 var textbox = new MyToolkit.Textbox;

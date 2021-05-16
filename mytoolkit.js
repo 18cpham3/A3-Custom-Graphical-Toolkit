@@ -145,36 +145,22 @@ var MyToolkit = (function() {
     }
 
     // radiobutton
-    var Radiobuttons = function() {
+    var Radiobuttons = function(num) {
         // BAC9DE
+        var radiobuttons = new Array(num);
         var draw = SVG().addTo('body').size('100%','100%');
         var radiobuttons = draw.group();
         var radiobutton1 = draw.group();
-        var radiobutton2 = draw.group();
-        var radiobutton3 = draw.group();
-        var draw = SVG().addTo('body').size('100%','100%');
-        var txt1 = draw.text("RadioButton 1").move(35,30);
-        var txt2 = draw.text("RadioButton 2").move(35,70);
-        var txt3 = draw.text("RadioButton 3").move(35,110);
-
-        // create radiobuttons
-        var ellipse1 = draw.circle(27).fill('white').stroke({ color:"#c2d6d6", width: 2, linecap: 'round', linejoin: 'round' }).move(0, 20);
-        var ellipse2 = draw.circle(27).fill('white').stroke({ color:"#c2d6d6", width: 2, linecap: 'round', linejoin: 'round' }).move(0, 60);
-        var ellipse3 = draw.circle(27).fill('white').stroke({ color:"#c2d6d6", width: 2, linecap: 'round', linejoin: 'round' }).move(0, 100);
-        var button = draw.circle(19).fill('#8DB9B6').move(4, 24);
-
-        // group 
-        radiobutton1.add(txt1);
+        var y = 0;
+        var buttony = 0;
         
-        radiobutton2.add(txt2);
-        radiobutton3.add(txt3);
-        radiobutton1.add(ellipse1);
-        radiobutton2.add(ellipse2);
-        radiobutton3.add(ellipse3);
-        radiobuttons.add(radiobutton1);
-        radiobuttons.add(radiobutton2);
-        radiobuttons.add(radiobutton3);
-        radiobuttons.add(button);
+        for (var i = 0; i < num; i++){
+            y += 40;
+            radiobutton1.add(draw.text("RadioButton " + (i+1)).move(35,y));
+            radiobutton1.add(draw.circle(27).fill('white').stroke({ color:"#c2d6d6", width: 2, linecap: 'round', linejoin: 'round' }).move(0, y));
+            radiobuttons.add(radiobutton1);
+            radiobuttons.add(draw.circle(19).fill('#8DB9B6').move(4, y+4));
+        }
 
         //callbacks
         radiobutton1.click(function(event){
@@ -185,20 +171,20 @@ var MyToolkit = (function() {
             //     clickEvent(event)
             // }
         })
-        radiobutton2.click(function(event){
-                button.y(radiobutton2.y() + 4)
+        // radiobutton2.click(function(event){
+        //         button.y(radiobutton2.y() + 4)
                 
-            // if(clickEvent != null){
-            //     clickEvent(event)
-            // }
-        })
-        radiobutton3.click(function(event){
-            // console.log(button.visible());
-                button.y(radiobutton3.y() + 4)
-            // if(clickEvent != null){
-            //     clickEvent(event)
-            // }
-        })
+        //     // if(clickEvent != null){
+        //     //     clickEvent(event)
+        //     // }
+        // })
+        // radiobutton3.click(function(event){
+        //     // console.log(button.visible());
+        //         button.y(radiobutton3.y() + 4)
+        //     // if(clickEvent != null){
+        //     //     clickEvent(event)
+        //     // }
+        // })
         
 
         return {
