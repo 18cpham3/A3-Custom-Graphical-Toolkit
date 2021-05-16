@@ -12,7 +12,7 @@ var MyToolkit = (function() {
         
         // create button
         var btn = draw.rect(80,35).fill("#BC4E76");
-        var txt = draw.text("Button 1").fill('#F6F3F7').move(12,8);
+        var txt = draw.text("Button 1").fill('#F6F3F7').move(15,8);
         
 
         
@@ -23,7 +23,6 @@ var MyToolkit = (function() {
         btnGroup.add(btn);
         btnGroup.add(txt);
         txt.font('middle');
-        btnGroup.move(1,5);
         ;
         
         // callbacks
@@ -75,42 +74,30 @@ var MyToolkit = (function() {
         var draw = SVG().addTo('body').size('100%','100%');
         var checkbox = draw.group()
         var checkBox1 = draw.group()
-        var checkBox2 = draw.group()
         var check = draw.group()
         var clickEvent = null;
         var check;
 
 
         // checkbox text
-        var txt = draw.text('Checkbox item 1').move(33, 8);
-        var txt2 = draw.text('Checkbox item 2').move(33, 50);
-
+        var txt = draw.text('Checkbox item').move(33, 8);
         // create checkbox
         var box = draw.rect(25,25).stroke({ color:"#BC4E76", width: 3, linecap: 'round', linejoin: 'round' }).fill("white");
-        var box2 = draw.rect(25,25).stroke({ color:"#BC4E76", width: 3, linecap: 'round', linejoin: 'round' }).fill("white").move(0, 40);
-        var line = draw.line(0, 0, 18, 18).move(4, 3.5).stroke({ color: '#A6C9C6', width: 2, linecap: 'round' })
-        var line2 = draw.line(0, 18, 18, 0).move(4, 3.5).stroke({ color: '#A6C9C6', width: 2, linecap: 'round' })
+        var line = draw.line(0, 0, 18, 18).move(3.5, 3.5).stroke({ color: '#A6C9C6', width: 2, linecap: 'round' })
+        var line2 = draw.line(0, 18, 18, 0).move(3.5, 3.5).stroke({ color: '#A6C9C6', width: 2, linecap: 'round' })
         
         // customize textbox
         //#7594BD
         box.radius(2);
-        box2.radius(2);
-
         // group checkbox
         
         check.add(line);
         check.add(line2);
-
         checkBox1.add(box);
-        checkBox2.add(box2);
-
         checkBox1.add(txt);
-        checkBox2.add(txt2);
-
         checkBox1.add(check);
         checkbox.add(checkBox1)
-        checkbox.add(checkBox2)
-        checkbox.move(20,20);
+        // checkbox.move(20,20);
         
         
     //[30,40], [50,10], [70,40], [50,60], [30,40]
@@ -119,18 +106,15 @@ var MyToolkit = (function() {
     // polyline.stroke({ width: 4, linecap: 'round', linejoin: 'round' })
 
         // callbacks
-
-        // callbacks
         checkBox1.mouseover(function(){
             box.stroke({color: 'pink', width: 3, linecap: 'round', linejoin: 'round' })
             line.stroke({ color:"silver", width: 2, linecap: 'round', linejoin: 'round' }).fill("white");
             line2.stroke({ color:"silver", width: 2, linecap: 'round', linejoin: 'round' }).fill("white");
         })
         checkBox1.mouseout(function(){
-            box.stroke({ color:"#BC4E76", width: 3, linecap: 'round', linejoin: 'round' }).fill("white");
-            line.stroke({ color: '#A6C9C6', width: 2, linecap: 'round' })
-            line2.stroke({ color: '#A6C9C6', width: 2, linecap: 'round' })
-            
+            box.stroke({color: '#BC4E76', width: 3, linecap: 'round', linejoin: 'round' })
+            line.stroke({ color:"#A6C9C6", width: 2, linecap: 'round', linejoin: 'round' }).fill("white");
+            line2.stroke({ color:"#A6C9C6", width: 2, linecap: 'round', linejoin: 'round' }).fill("white");
         })
         // btnGroup.mouseup(function(){
         //     btn.fill({ color: 'orange'})
@@ -143,35 +127,90 @@ var MyToolkit = (function() {
             else{
                 check.show();
             }
-
-
             
             if(clickEvent != null)
                 clickEvent(event)
         })
         return{
             move: function(x, y) {
-                checkBox.move(x, y);
+                checkbox.move(x, y);
             },
             onclick: function(eventHandler){
                 clickEvent = eventHandler
+            },
+            setText: function(text){
+                txt.text(text);
             }
         }
     }
 
     // radiobutton
     var Radiobuttons = function() {
-        //BAC9DE
+        // BAC9DE
         var draw = SVG().addTo('body').size('100%','100%');
-        var text = draw.text("RadioButton 1").move(35,30);
-        var text = draw.text("RadioButton 2").move(35,70);
-        var text = draw.text("RadioButton 3").move(35,110);
+        var radiobuttons = draw.group();
+        var radiobutton1 = draw.group();
+        var radiobutton2 = draw.group();
+        var radiobutton3 = draw.group();
+        var draw = SVG().addTo('body').size('100%','100%');
+        var txt1 = draw.text("RadioButton 1").move(35,30);
+        var txt2 = draw.text("RadioButton 2").move(35,70);
+        var txt3 = draw.text("RadioButton 3").move(35,110);
 
-        //create radiobuttons
-        var ellipse1 = draw.ellipse(27, 27).fill('white').stroke({ color:"#c2d6d6", width: 2, linecap: 'round', linejoin: 'round' }).move(0, 20);
-        var ellipse2 = draw.ellipse(19, 19).fill('#8DB9B6').move(4, 24);
-        var ellipse1 = draw.ellipse(27, 27).fill('white').stroke({ color:"#c2d6d6", width: 2, linecap: 'round', linejoin: 'round' }).move(0, 60);
-        var ellipse1 = draw.ellipse(27, 27).fill('white').stroke({ color:"#c2d6d6", width: 2, linecap: 'round', linejoin: 'round' }).move(0, 100);
+        // create radiobuttons
+        var ellipse1 = draw.circle(27).fill('white').stroke({ color:"#c2d6d6", width: 2, linecap: 'round', linejoin: 'round' }).move(0, 20);
+        var ellipse2 = draw.circle(27).fill('white').stroke({ color:"#c2d6d6", width: 2, linecap: 'round', linejoin: 'round' }).move(0, 60);
+        var ellipse3 = draw.circle(27).fill('white').stroke({ color:"#c2d6d6", width: 2, linecap: 'round', linejoin: 'round' }).move(0, 100);
+        var button = draw.circle(19).fill('#8DB9B6').move(4, 24);
+
+        // group 
+        radiobutton1.add(txt1);
+        
+        radiobutton2.add(txt2);
+        radiobutton3.add(txt3);
+        radiobutton1.add(ellipse1);
+        radiobutton2.add(ellipse2);
+        radiobutton3.add(ellipse3);
+        radiobuttons.add(radiobutton1);
+        radiobuttons.add(radiobutton2);
+        radiobuttons.add(radiobutton3);
+        radiobuttons.add(button);
+
+        //callbacks
+        radiobutton1.click(function(event){
+            
+                button.y(radiobutton1.y() + 4)
+        
+            // if(clickEvent != null){
+            //     clickEvent(event)
+            // }
+        })
+        radiobutton2.click(function(event){
+                button.y(radiobutton2.y() + 4)
+                
+            // if(clickEvent != null){
+            //     clickEvent(event)
+            // }
+        })
+        radiobutton3.click(function(event){
+            // console.log(button.visible());
+                button.y(radiobutton3.y() + 4)
+            // if(clickEvent != null){
+            //     clickEvent(event)
+            // }
+        })
+        
+
+        return {
+            // move: function(x, y) {
+            //     btn.move(x, y);
+            // },
+            onclick: function(eventHandler){
+                clickEvent = eventHandler
+            }
+            
+        }
+
     }
 
     // textbox
