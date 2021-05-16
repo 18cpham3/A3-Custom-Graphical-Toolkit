@@ -4,6 +4,7 @@ import {MyToolkit} from './mytoolkit.js';
 
 // Implement a MyToolkit Button
 var btn = new MyToolkit.Button;
+
 btn.move(100,100);
 btn.setText("Button 1");
 // btn.setColor('red')
@@ -13,6 +14,7 @@ btn.onclick(function(e){
 
 // Mytoolkit checkbox
 var checkbox = new MyToolkit.Checkbox;
+var checkbox2 = new MyToolkit.Checkbox;
 checkbox.move(100, 20);
 checkbox.setText("Write svg checkbox code")
 // var checkbox2 = new MyToolkit.Checkbox;
@@ -21,8 +23,14 @@ checkbox.setText("Write svg checkbox code")
 // });
 
 // Mytoolkit radiobutton
-var radiobuttons= new MyToolkit.Radiobuttons(10);
-// radiobuttons.onclick(function(e){
+var r = []
+r.push(["Radiobutton 1", false])
+r.push(["Radiobutton 2", false])
+r.push(["Radiobutton 3", false])
+r.push(["Radiobutton 4", true])
+let rb1 = new MyToolkit.Radiobuttons(r);
+rb1.move(10,10);
+// r.onclick(function(e){
 // 	console.log(e);
 // });
 

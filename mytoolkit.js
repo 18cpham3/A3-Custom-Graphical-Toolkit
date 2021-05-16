@@ -11,7 +11,7 @@ var MyToolkit = (function() {
         var btnGroup = draw.group();
         
         // create button
-        var btn = draw.rect(80,35).fill("#BC4E76");
+        var btn = draw.rect(86,35).fill("#BC4E76");
         var txt = draw.text("Button 1").fill('#F6F3F7').move(15,8);
         
 
@@ -71,7 +71,7 @@ var MyToolkit = (function() {
 
     // Checkbox Widget
     var Checkbox = function() {
-        var draw = SVG().addTo('body').size('100%','100%');
+        var draw = SVG().addTo('body').size('100%','100%').width(900).height(50);
         var checkbox = draw.group()
         var checkBox1 = draw.group()
         var check = draw.group()
@@ -80,11 +80,11 @@ var MyToolkit = (function() {
 
 
         // checkbox text
-        var txt = draw.text('Checkbox item').move(33, 8);
+        var txt = draw.text('Checkbox item').move(35, 8);
         // create checkbox
-        var box = draw.rect(25,25).stroke({ color:"#BC4E76", width: 3, linecap: 'round', linejoin: 'round' }).fill("white");
-        var line = draw.line(0, 0, 18, 18).move(3.5, 3.5).stroke({ color: '#A6C9C6', width: 2, linecap: 'round' })
-        var line2 = draw.line(0, 18, 18, 0).move(3.5, 3.5).stroke({ color: '#A6C9C6', width: 2, linecap: 'round' })
+        var box = draw.rect(25,25).stroke({ color:"#BC4E76", width: 3, linecap: 'round', linejoin: 'round' }).fill("white").move(3,3);
+        var line = draw.line(0, 0, 18, 18).move(6.5, 6.5).stroke({ color: '#A6C9C6', width: 2, linecap: 'round' })
+        var line2 = draw.line(0, 18, 18, 0).move(6.5, 6.5).stroke({ color: '#A6C9C6', width: 2, linecap: 'round' })
         
         // customize textbox
         //#7594BD
@@ -112,17 +112,27 @@ var MyToolkit = (function() {
             line2.stroke({ color:"silver", width: 2, linecap: 'round', linejoin: 'round' }).fill("white");
         })
         checkBox1.mouseout(function(){
-            box.stroke({color: '#BC4E76', width: 3, linecap: 'round', linejoin: 'round' })
-            line.stroke({ color:"#A6C9C6", width: 2, linecap: 'round', linejoin: 'round' }).fill("white");
-            line2.stroke({ color:"#A6C9C6", width: 2, linecap: 'round', linejoin: 'round' }).fill("white");
+            if (check.visible() == true){
+                box.stroke({color: '#BC4E76', width: 3, linecap: 'round', linejoin: 'round' })
+                line.stroke({ color:"#A6C9C6", width: 2, linecap: 'round', linejoin: 'round' }).fill("white");
+                line2.stroke({ color:"#A6C9C6", width: 2, linecap: 'round', linejoin: 'round' }).fill("white");
+            }
+            else{
+                box.stroke("silver");
+            }
         })
         // btnGroup.mouseup(function(){
         //     btn.fill({ color: 'orange'})
         // })
+        
+
         checkBox1.click(function(event){
             // console.log(check.visible());
             if(check.visible() == true){
                 check.hide();
+                // if(check.visible() == false){
+                //     box.stroke("gray");
+                // };
             }
             else{
                 check.show();
@@ -145,39 +155,45 @@ var MyToolkit = (function() {
     }
 
     // radiobutton
-    var Radiobuttons = function() {
-        // BAC9DE
-        var draw = SVG().addTo('body').size('100%','100%').height(50);
+    var Radiobuttons = function(r) {
+        console.log(r);
+        var draw = SVG().addTo('body').size('100%','100%').height(r.length* 50);
         var radioButtons = draw.group()
-        var fixedButton = draw.group()
         var y = 0;
-        
-        var txt = draw.text("RadioButton").move(35,y+5);
-                
-                
-        var outerButton = draw.circle(27).fill('white').stroke({ color:"#c2d6d6", width: 2, linecap: 'round', linejoin: 'round' }).move(0, y);
-        
-        var button = draw.circle(19).fill('#8DB9B6').move(4, y+4);
-        fixedButton.add(txt);
-        fixedButton.add(outerButton);
-        radioButtons.add(fixedButton);
-        
-        fixedButton.click(function(event){
-                console.log(button.visible());
-                    button.y(fixedButton.y() + 4)
-                if(clickEvent != null){
-                    clickEvent(event)
-                }
-            });
-
-        return {
-            move: function(x, y) {
-                btn.move(x, y);
-            },
-            onclick: function(eventHandler){
-                clickEvent = eventHandler
+        var buttons = [];
+        for (var i = 0; i < r.length; i++){
+            y+=40
+            // console.log(r[i][0]);
+            var outerButton = draw.circle(27).fill('white').stroke({ color:"#c2d6d6", width: 2, linecap: 'round', linejoin: 'round' }).move(0, y);
+            var txt = draw.text(r[i][0]).move(35,y+5);
+            // console.log(outerButton.y());
+            var button = draw.circle(19).fill('#8DB9B6').move(4, y+4);
+            if (r[i][1] == false){
+                button.hide();
             }
-            
+            buttons.push(outerButton);
+            radioButtons.add(outerButton);
+            radioButtons.add(txt);
+            radioButtons.add(button);
+        }
+        // console.log(radioButtons.first().y());
+        // console.log(radioButtons.get(1).y());
+        // console.log(radioButtons.get(2).y());
+        radioButtons.each(function(event){
+            console.log()
+        });
+        // callbacks
+        // buttons.each(function(item){
+        //     console.log(item);
+        // });
+        outerButton.click(function(event){
+            console.log(outerButton.attr());
+        });
+
+        return{
+            move: function(x, y) {
+                radioButtons.move(x, y);
+            }
         }
 
     }
@@ -185,8 +201,31 @@ var MyToolkit = (function() {
     // textbox
     var Textbox = function() {
         var draw = SVG().addTo('body').size('100%','100%');
-        var textbox = draw.rect(180, 25).stroke({ color:"#0EB1D2", width: 2}).fill('white');
+        var textbox = draw.rect(180, 25).stroke({ color:"silver", width: 2}).fill('white');
         textbox.radius(2);
+        var caret = draw.rect(2,15).move(7,6).fill('gray');
+        var runner = caret.animate().width(0);
+        runner.loop(2000,10,10);
+        caret.hide();
+        var text = draw.text("").move(3,-1.5);
+        textbox.click(function(event){
+            caret.show();
+            textbox.stroke('#3D5A80')
+            //remove cntrl shift alt
+            SVG.on(window, 'keyup', (event) => {
+                
+                // console.log(event.key);
+                text.text(text.text() + event.key);
+                caret.move(text.length()+3);
+                // if (text.length > textbox.size()){
+                //     textbox.size(textbox.x() + text.length, 25);
+                // }
+                
+            })
+        });
+        
+
+
         
         
     }
