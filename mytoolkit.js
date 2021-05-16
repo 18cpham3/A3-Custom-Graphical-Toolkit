@@ -145,52 +145,35 @@ var MyToolkit = (function() {
     }
 
     // radiobutton
-    var Radiobuttons = function(num) {
+    var Radiobuttons = function() {
         // BAC9DE
-        var radiobuttons = new Array(num);
-        var draw = SVG().addTo('body').size('100%','100%');
-        var radiobuttons = draw.group();
-        var radiobutton1 = draw.group();
+        var draw = SVG().addTo('body').size('100%','100%').height(50);
+        var radioButtons = draw.group()
+        var fixedButton = draw.group()
         var y = 0;
-        var buttony = 0;
         
-        for (var i = 0; i < num; i++){
-            y += 40;
-            radiobutton1.add(draw.text("RadioButton " + (i+1)).move(35,y));
-            radiobutton1.add(draw.circle(27).fill('white').stroke({ color:"#c2d6d6", width: 2, linecap: 'round', linejoin: 'round' }).move(0, y));
-            radiobuttons.add(radiobutton1);
-            radiobuttons.add(draw.circle(19).fill('#8DB9B6').move(4, y+4));
-        }
-
-        //callbacks
-        radiobutton1.click(function(event){
-            
-                button.y(radiobutton1.y() + 4)
-        
-            // if(clickEvent != null){
-            //     clickEvent(event)
-            // }
-        })
-        // radiobutton2.click(function(event){
-        //         button.y(radiobutton2.y() + 4)
+        var txt = draw.text("RadioButton").move(35,y+5);
                 
-        //     // if(clickEvent != null){
-        //     //     clickEvent(event)
-        //     // }
-        // })
-        // radiobutton3.click(function(event){
-        //     // console.log(button.visible());
-        //         button.y(radiobutton3.y() + 4)
-        //     // if(clickEvent != null){
-        //     //     clickEvent(event)
-        //     // }
-        // })
+                
+        var outerButton = draw.circle(27).fill('white').stroke({ color:"#c2d6d6", width: 2, linecap: 'round', linejoin: 'round' }).move(0, y);
         
+        var button = draw.circle(19).fill('#8DB9B6').move(4, y+4);
+        fixedButton.add(txt);
+        fixedButton.add(outerButton);
+        radioButtons.add(fixedButton);
+        
+        fixedButton.click(function(event){
+                console.log(button.visible());
+                    button.y(fixedButton.y() + 4)
+                if(clickEvent != null){
+                    clickEvent(event)
+                }
+            });
 
         return {
-            // move: function(x, y) {
-            //     btn.move(x, y);
-            // },
+            move: function(x, y) {
+                btn.move(x, y);
+            },
             onclick: function(eventHandler){
                 clickEvent = eventHandler
             }
@@ -204,16 +187,21 @@ var MyToolkit = (function() {
         var draw = SVG().addTo('body').size('100%','100%');
         var textbox = draw.rect(180, 25).stroke({ color:"#0EB1D2", width: 2}).fill('white');
         textbox.radius(2);
+        
+        
     }
 
     // scrollbar
     var Scrollbar = function() {
-        var draw = SVG().addTo('body').size('100%','100%');
+        var draw = SVG().addTo('body').size('100%','100%').height(300);
         var textbox = draw.rect(20, 150).stroke({ color:"#4E7E7A", width: 2}).fill('white');
         var upBtn = draw.rect(20, 20).stroke({ color:"#3D5A80", width: 2}).fill('white');
-        var downBtn = draw.rect(20, 20).stroke({ color:"#3D5A80", width: 2}).fill('white');
-        // var upArrow
-        // var downArrow
+        var scroll = draw.rect(18, 30).fill('#9FB4D1').move(1,21);
+        
+        var upArrow =  draw.polyline([[30,40], [40,30], [50,40]]).fill('#BC4E76').move(20, 10).stroke({ width: 4, linecap: 'round', linejoin: 'round' }).move(0,5);
+        var downBtn = draw.rect(20, 20).stroke({ color:"#3D5A80", width: 2}).fill('white').move(0,150);
+        var downArrow = draw.polyline([[-30,-40], [-40,-30], [-50,-40]]).fill('#BC4E76').move(20, 10).stroke({ width: 4, linecap: 'round', linejoin: 'round' }).move(0,155);
+        
         return {
             // move: function(x, y) {
             //     btn.move(x, y);
@@ -233,6 +221,31 @@ var MyToolkit = (function() {
 
     var Custom = function(){
         var draw = SVG().addTo('body').size('100%','100%');
+        var toggleButton = draw.group();
+        var container = draw.rect(54,30).stroke({color:"#BC4E76", width: 2}).fill('white');
+        var x = container.x() + 3;
+        var toggle = draw.circle(25,25).stroke({color:"#BC4E76", width: 2}).fill('white').move(x,2.5);
+        container.radius(15);
+        
+        toggleButton.add(container);
+        toggleButton.add(toggle);
+        toggleButton.move(10,10);
+
+        toggle.click(function(event){
+            console.log(toggle.x());
+            if (toggle.x() == container.x()+3){
+                container.fill("#E9C4D1");
+                toggle.fill("#BC4E76");
+                // toggle.animate.move(toggle.x()+23, 2.5);
+                toggle.x(toggle.x()+23);
+            }
+            else{
+                container.fill("white")
+                toggle.fill('white');
+                toggle.x(toggle.x()-23);
+            }
+            
+        })
     }
 
 return {Button, Checkbox, Radiobuttons, Textbox, Scrollbar, Progressbar, Custom}
