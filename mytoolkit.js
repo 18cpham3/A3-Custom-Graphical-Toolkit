@@ -209,7 +209,7 @@ var MyToolkit = (function() {
         var clicked = false;
         var draw = SVG().addTo('body').size('100%','100%');
         var textbox = draw.group();
-        var box = draw.rect(180, 25).stroke({ color:"silver", width: 2}).fill('white');
+        var box = draw.rect(180, 25).stroke({ color:"silver", width: 1}).fill('white');
         box.radius(2);
         var caret = draw.rect(2,15).move(6,5).fill('gray');
         var runner = caret.animate().width(0);
@@ -237,7 +237,7 @@ var MyToolkit = (function() {
             SVG.on(window, 'keyup', (event) => {
                 var enterInput = "";
                 console.log(event.keyCode);
-                box.stroke('#3D5A80');
+                box.stroke({ color:'#3D5A80', width: 1.5});
                 caret.show();
                 // console.log(event.key);
                 var eventNum = [16, 17, 18, 20, 33, 34,35,36, 37, 45, 174, 175, 176, 177, 178]
@@ -361,11 +361,16 @@ var MyToolkit = (function() {
             thumb.dy(event.clientY-thumb.y());
             console.log(thumb.y());
         });
-        scroll.mouseover(function(event){
-            
+        thumb.click(function(event){
+            console.log("clicked");
+            SVG.on(window, 'onmousedown', (event) => {
+                    console.log('down');
+                });
         });
         // Make sure you are capturing events from your inner and outer rectangles (if that's how you have built your thumbbar)
         // Capture your mouse position from ClientY rather than PageY
+        // actions do you need to take with the mouse to get it to move and in what sequence do they happen in
+        //direction - make sure to consider up, down, and no movement
         // SVG.on(window, 'keyup', (event) => {
 
         // });
@@ -382,8 +387,12 @@ var MyToolkit = (function() {
     // progressbar
     var Progressbar = function(){
         var draw = SVG().addTo('body').size('100%','100%');
-        var textbox = draw.rect(200, 15).stroke({ color:"#3D5A80", width: 2}).fill('white');
-        
+        var progressbar = draw.group();
+        var  bar = draw.rect(200, 15).stroke({ color:"#3D5A80", width: 1.5}).fill('white');
+        var progress = draw.rect(20, 12).fill("#BC4E76").move(1,1.5);
+        progressbar.add(bar);
+        progressbar.add(progress);
+        progressbar.move(1,1);
     }
 
     var Custom = function(){
@@ -391,7 +400,7 @@ var MyToolkit = (function() {
         var toggleButton = draw.group();
         var container = draw.rect(54,30).stroke({color:"#A6C9C6", width: 2}).fill('white');
         var x = container.x() + 3;
-        var toggle = draw.circle(25,25).stroke({color:"#C76B8D", width: 2}).fill('white').move(x,2.5);
+        var toggle = draw.circle(25,25).stroke({color:"#DDA6BA", width: 2}).fill('white').move(x,2.5);
         container.radius(15);
         
         toggleButton.add(container);
@@ -399,7 +408,7 @@ var MyToolkit = (function() {
         toggleButton.move(10,10);
 
         toggle.mouseover(function(event){
-            toggle.fill("#C76B8D");
+            toggle.fill("#DDA6BA");
         });
         toggle.mouseout(function(event){
             toggle.fill("white");
@@ -407,12 +416,12 @@ var MyToolkit = (function() {
         toggleButton.click(function(event){
             console.log(toggle.x());
             if (toggle.x() == container.x()+3){
-                container.fill("#CCE0DF").stroke("#5D9895");
+                container.fill("#B3D0CE").stroke("#5D9895");
                 toggle.fill("#BC4E76").stroke("#BC4E76");
                 // toggle.animate.move(toggle.x()+23, 2.5);
                 toggle.x(toggle.x()+23);
                 toggle.mouseover(function(event){
-                    toggle.fill("#BC4E76");
+                    toggle.fill("#C15C81").stroke('#C15C81');
                 });
                 toggle.mouseout(function(event){
                     toggle.fill("#BC4E76");
@@ -420,10 +429,10 @@ var MyToolkit = (function() {
             }
             else{
                 container.fill("white").stroke("#A6C9C6");
-                toggle.fill('white').stroke("#C76B8D");
+                toggle.fill('white').stroke("#DDA6BA");
                 toggle.x(toggle.x()-23);
                 toggle.mouseover(function(event){
-                    toggle.fill("#C76B8D");
+                    toggle.fill("#DDA6BA").stroke("#DDA6BA");
                 });
                 toggle.mouseout(function(event){
                     toggle.fill("white");
