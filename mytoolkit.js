@@ -208,23 +208,37 @@ var MyToolkit = (function() {
     var Textbox = function() {
         var clicked = false;
         var draw = SVG().addTo('body').size('100%','100%');
-        var textbox = draw.rect(180, 25).stroke({ color:"silver", width: 2}).fill('white');
-        textbox.radius(2);
+        var textbox = draw.group();
+        var box = draw.rect(180, 25).stroke({ color:"silver", width: 2}).fill('white');
+        box.radius(2);
         var caret = draw.rect(2,15).move(6,5).fill('gray');
         var runner = caret.animate().width(0);
         runner.loop(2000,10,10);
         caret.hide();
         var text = draw.text("").move(3,-1.5);
+        
+        textbox.add(box);
+        textbox.add(text);
         textbox.click(function(event){
-            
             caret.show();
-            textbox.stroke('#3D5A80');
+            box.stroke('#3D5A80');
             console.log(event);
-            // remove ctrl shift alt etc
-            // console.log(textbox.size());
+            
+        });
+        textbox.mouseover(function(event){
+            caret.show();
+            box.stroke('#3D5A80');
+        });
+        textbox.mouseout(function(event){
+            caret.hide();
+            box.stroke('silver');
+        });
+        
             SVG.on(window, 'keyup', (event) => {
                 var enterInput = "";
                 console.log(event.keyCode);
+                box.stroke('#3D5A80');
+                caret.show();
                 // console.log(event.key);
                 var eventNum = [16, 17, 18, 20, 33, 34,35,36, 37, 45, 174, 175, 176, 177, 178]
                 if (event.keyCode == 8){
@@ -232,7 +246,7 @@ var MyToolkit = (function() {
                     text.text(text.text().substring(0, text.text().length-1));
                     caret.move(text.length()+3);
                     if (text.length() < 180){
-                        textbox.size(180, 25);
+                        box.size(180, 25);
                     }
                 }
                 else if(eventNum.includes(event.keyCode)){
@@ -242,11 +256,11 @@ var MyToolkit = (function() {
                     enterInput = text.text();
                     text.text("");
                     caret.move(6,5);
-                    textbox.size(180, 25);
+                    box.size(180, 25);
                     console.log(enterInput);  
                 }
                 else if(event.keyCode == 27 ){
-                    textbox.stroke({ color:"silver", width: 2}).fill('white');
+                    box.stroke({ color:"silver", width: 2}).fill('white');
                     text.text('');
                     caret.move(6,5);
                     caret.hide();
@@ -256,38 +270,105 @@ var MyToolkit = (function() {
                     text.text(text.text() + event.key);
                     caret.move(text.length()+3);
                     if (text.length() > 180){
-                        textbox.size(10 + text.length(), 25);
+                        box.size(10 + text.length(), 25);
                     }   
                 }
             })
-        });
+        
         
     }
 
     // scrollbar
     var Scrollbar = function() {
-        var draw = SVG().addTo('body').size('100%','100%').height(300);
-        var textbox = draw.rect(20, 150).stroke({ color:"#4E7E7A", width: 2}).fill('white');
-        var upBtn = draw.rect(20, 20).stroke({ color:"#3D5A80", width: 2}).fill('white');
-        var scroll = draw.rect(18, 30).fill('#9FB4D1').move(1,21);
-        
-        var upArrow =  draw.polyline([[30,40], [40,30], [50,40]]).fill('#BC4E76').move(20, 10).stroke({ width: 4, linecap: 'round', linejoin: 'round' }).move(0,5);
-        var downBtn = draw.rect(20, 20).stroke({ color:"#3D5A80", width: 2}).fill('white').move(0,150);
-        var downArrow = draw.polyline([[-30,-40], [-40,-30], [-50,-40]]).fill('#BC4E76').move(20, 10).stroke({ width: 4, linecap: 'round', linejoin: 'round' }).move(0,155);
-        
+        var draw = SVG().addTo('body').size('100%','100%').height(400);
+        var scrollbar = draw.group();
+        var scroll = draw.rect(18, 150).stroke({ color:"#3D5A80", width: 2}).fill('white');
+        var upBtn = draw.rect(18, 20).stroke({ color:"#3D5A80", width: 2}).fill('white').move(0,-22);
+        var thumb = draw.rect(14, 35).fill('#A6C9C6').move(2,1);
+        thumb.radius(3);
+        scroll.radius(3);
+        // draw.polyline([[30,40], [40,30], [50,40]]).fill('#BC4E76').move(20, 10).stroke({ width: 4, linecap: 'round', linejoin: 'round' }).move(0,5);
+        var downBtn = draw.rect(18, 20).stroke({ color:"#3D5A80", width: 2}).fill('white').move(0,152);
+        //  draw.polyline([[-30,-40], [-40,-30], [-50,-40]]).fill('#BC4E76').move(20, 10).stroke({ width: 4, linecap: 'round', linejoin: 'round' }).move(0,165);
+        var upArrow =  draw.text("⯅").move(1.5,-19);
+        var downArrow = draw.text("⯆").move(1.5,152);
+        downBtn.radius(3);
+        upBtn.radius(3);
         var down = draw.group();
         var up = draw.group();
         down.add(downBtn);
-        down.add(downArrow);
-        up.add(upBtn);
-        up.add(upArrow);
-        
+        down.mouseover(function(event){
+            downBtn.fill('#9FB4D1');
+        })
+        down.mouseout(function(event){
+            downBtn.fill('white');
+        })
         down.click(function(event){
-            if (scroll.y() < down.y()-30){
-            scroll.move(scroll.x(), scroll.y()+5);
+            downBtn.fill('#3D5A80');
+        })
+        up.mouseover(function(event){
+            upBtn.fill('#9FB4D1');
+        })
+        up.click(function(event){
+            upBtn.fill('#3D5A80');
+        })
+        up.mouseout(function(event){
+            upBtn.fill('white');
+        })
+        scroll.mouseover(function(event){
+            scroll.fill('#E6EFEF');
+        })
+        scroll.mouseout(function(event){
+            scroll.fill('white');
+        })
+        thumb.mouseover(function(event){
+            thumb.fill('#6AA0A0');
+        })
+        thumb.mouseout(function(event){
+            thumb.fill('#A6C9C6');
+        })
+        up.add(upBtn);
+        down.add(downArrow);
+        up.add(upArrow);
+        scrollbar.add(scroll);
+        scrollbar.add(thumb);
+        scrollbar.add(down);
+        scrollbar.add(up);
+        scrollbar.move(0,10);
+        var clickinterval = 35;
+        down.click(function(event){
+            if (thumb.y() <= downBtn.y() - 40){
+            thumb.move(thumb.x(), thumb.y()+clickinterval);
+            // thumb.dy(clickinterval);
+            console.log(down.y());
+            console.log(thumb.y());
             }
         });
-        
+        up.click(function(event){
+            // console.log(upBtn.width());
+            console.log(up.y());
+            if (thumb.y() > upBtn.width() + 20){
+            thumb.move(thumb.x(), thumb.y()-clickinterval);
+            // thumb.dy(-clickinterval);
+            console.log(thumb.y());
+            }
+            // else if (thumb.y() - clickinterval < upBtn.y()){
+            //     thumb.move(thumb.x(), 0);
+            // }
+        });
+        scroll.click(function(event){
+            console.log(event);
+            thumb.dy(event.clientY-thumb.y());
+            console.log(thumb.y());
+        });
+        scroll.mouseover(function(event){
+            
+        });
+        // Make sure you are capturing events from your inner and outer rectangles (if that's how you have built your thumbbar)
+        // Capture your mouse position from ClientY rather than PageY
+        // SVG.on(window, 'keyup', (event) => {
+
+        // });
         return {
             // move: function(x, y) {
             //     btn.move(x, y);
