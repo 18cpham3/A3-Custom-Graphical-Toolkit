@@ -34,7 +34,7 @@ var MyToolkit = (function() {
             txt.fill("white");
         })
         btnGroup.mouseup(function(){
-            btn.fill({ color: 'orange'})
+            btn.fill({ color: '#3D5A80'})
         })
         btnGroup.click(function(event){
             btn.fill({ color: '#FA9189'}).stroke({ color:"#BC4E76", width: 2, linecap: 'round', linejoin: 'round' }).fill("white")
@@ -161,47 +161,39 @@ var MyToolkit = (function() {
         var radioButtons = draw.group()
         var y = 0;
         var buttons = new Array();
+        var allFalse = true;
+        var button = draw.circle(19).fill('#8DB9B6').move(4, y+4);
+        button.hide();
         for (var i = 0; i < r.length; i++){
             y+=40
             // console.log(r[i][0]);
             var outerButton = draw.circle(27).fill('white').stroke({ color:"#c2d6d6", width: 2, linecap: 'round', linejoin: 'round' }).move(0, y);
             var txt = draw.text(r[i][0]).move(35,y+5);
-            var button = draw.circle(19).fill('#8DB9B6').move(4, y+4);
-            if (r[i][1] == false){
-                button.hide();
+            if (r[i][1] == true){
+                button.move(4, y+4);
+                button.show();
+                allFalse = false;
             }
             buttons.push(outerButton);
             radioButtons.add(outerButton);
             radioButtons.add(txt);
             radioButtons.add(button);
         }
-        // console.log(radioButtons.first().y());
-        // console.log(radioButtons.get(1).y());
-        // console.log(radioButtons.get(2).y());
-        // radioButtons.each(function(event){
-        //     console.log()
-        // });
-        // buttons.map(e => e.addEventListener(){
-        //     console.log(e);
-        // )};
-        
-        // callbacks
-        // buttons.each(function(item){
-        //     console.log(item);
-        // });
+        if (allFalse == true){
+            button.show().move(4, 44);
+        }
         console.log(buttons);
         outerButton.click(function(event){
             console.log(outerButton.attr());
         });
-        buttons.map(e => e.addEventListener("click", function(){ 
-            console.log("hello"); 
+        buttons.map(e => e.node.addEventListener("click", function(){ 
+            button.move(e.x()+4, e.y()+4);
         }));
         return{
             move: function(x, y) {
                 radioButtons.move(x, y);
             }
         }
-
     }
 
     // textbox

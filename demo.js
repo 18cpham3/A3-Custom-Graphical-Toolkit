@@ -27,8 +27,8 @@ checkbox.setText("New Checkbox")
 var r = []
 r.push(["Radiobutton 1", false])
 r.push(["Radiobutton 2", false])
-r.push(["Radiobutton 3", false])
-r.push(["Radiobutton 4", true])
+r.push(["Radiobutton 3", true])
+r.push(["Radiobutton 4", false])
 let rb1 = new MyToolkit.Radiobuttons(r);
 rb1.move(10,10);
 // r.onclick(function(e){
