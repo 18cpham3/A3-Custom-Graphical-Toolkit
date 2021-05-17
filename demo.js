@@ -15,8 +15,9 @@ btn.onclick(function(e){
 // Mytoolkit checkbox
 var checkbox = new MyToolkit.Checkbox;
 var checkbox2 = new MyToolkit.Checkbox;
-checkbox.move(100, 20);
-checkbox.setText("Write svg checkbox code")
+// checkbox.move(100, 20);
+// checkbox.move(100, 20);
+checkbox.setText("New Checkbox")
 // var checkbox2 = new MyToolkit.Checkbox;
 // checkbox.onclick(function(e){
 // 	console.log(e);

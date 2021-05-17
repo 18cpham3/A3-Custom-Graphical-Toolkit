@@ -46,7 +46,7 @@ var MyToolkit = (function() {
             setText: function(text){
                 txt.text(text);
                 btn.width();
-                // change 
+                // change size
                 btn.size(txt.length() + 30,35)
             },
             move: function(x, y) {
@@ -71,7 +71,7 @@ var MyToolkit = (function() {
 
     // Checkbox Widget
     var Checkbox = function() {
-        var draw = SVG().addTo('body').size('100%','100%').width(900).height(50);
+        var draw = SVG().addTo('body').size('100%','100%').width(900).height(30);
         var checkbox = draw.group()
         var checkBox1 = draw.group()
         var check = draw.group()
@@ -203,7 +203,7 @@ var MyToolkit = (function() {
         var draw = SVG().addTo('body').size('100%','100%');
         var textbox = draw.rect(180, 25).stroke({ color:"silver", width: 2}).fill('white');
         textbox.radius(2);
-        var caret = draw.rect(2,15).move(7,6).fill('gray');
+        var caret = draw.rect(2,15).move(6,5).fill('gray');
         var runner = caret.animate().width(0);
         runner.loop(2000,10,10);
         caret.hide();
@@ -211,22 +211,61 @@ var MyToolkit = (function() {
         textbox.click(function(event){
             caret.show();
             textbox.stroke('#3D5A80')
+            
             //remove cntrl shift alt
+            // console.log(textbox.size());
             SVG.on(window, 'keyup', (event) => {
-                
+                var enterInput = "";
+                console.log(event.keyCode);
                 // console.log(event.key);
-                text.text(text.text() + event.key);
-                caret.move(text.length()+3);
-                // if (text.length > textbox.size()){
-                //     textbox.size(textbox.x() + text.length, 25);
-                // }
+                var eventNum = [16, 18, 33, 34,35,36, 37, 45]
+                if (event.keyCode == 8){
+                    console.log(text.text());
+                    text.text(text.text().substring(0, text.text().length-1));
+                    caret.move(text.length()+3);
+                }
+                else if(eventNum.includes(event.keyCode)){
+                    console.log("Hellooo");
+                }
+                else if(event.keyCode == 13 || event.keyCode == 46 ){
+                    enterInput = text.text();
+                    text.text("");
+                    caret.move(6,5);
+                    textbox.size(180, 25);
+                    console.log(enterInput);
+                    
+                }
+                else if(event.keyCode == 27 ){
+                    textbox.stroke({ color:"silver", width: 2}).fill('white');
+                    text.text('');
+                    caret.hide();
+                }
+                else{
+                    
+                    // text.remember('oldText', text.text());
+                    text.text(text.text() + event.key);
+                    caret.move(text.length()+3);
+                    
+                    if (text.length() > 180){
+                        textbox.size(10 + text.length(), 25);
+                    }
+                    
+                }
+                
+                // console.log(text.length());
+                // console.log(text.text());
+                // textbox.size()
+                
+                // textbox.size(textbox.x() + text.length, 25).stroke({ color:"#3D5A80", width: 2}).fill('white');  
                 
             })
+
+            // return{
+            //     getInput(function(){
+
+            //     )};
+            // }
         });
-        
-
-
-        
         
     }
 
@@ -261,29 +300,47 @@ var MyToolkit = (function() {
     var Custom = function(){
         var draw = SVG().addTo('body').size('100%','100%');
         var toggleButton = draw.group();
-        var container = draw.rect(54,30).stroke({color:"#BC4E76", width: 2}).fill('white');
+        var container = draw.rect(54,30).stroke({color:"#A6C9C6", width: 2}).fill('white');
         var x = container.x() + 3;
-        var toggle = draw.circle(25,25).stroke({color:"#BC4E76", width: 2}).fill('white').move(x,2.5);
+        var toggle = draw.circle(25,25).stroke({color:"#C76B8D", width: 2}).fill('white').move(x,2.5);
         container.radius(15);
         
         toggleButton.add(container);
         toggleButton.add(toggle);
         toggleButton.move(10,10);
 
-        toggle.click(function(event){
+        toggle.mouseover(function(event){
+            toggle.fill("#C76B8D");
+        });
+        toggle.mouseout(function(event){
+            toggle.fill("white");
+        });
+        toggleButton.click(function(event){
             console.log(toggle.x());
             if (toggle.x() == container.x()+3){
-                container.fill("#E9C4D1");
-                toggle.fill("#BC4E76");
+                container.fill("#CCE0DF").stroke("#5D9895");
+                toggle.fill("#BC4E76").stroke("#BC4E76");
                 // toggle.animate.move(toggle.x()+23, 2.5);
                 toggle.x(toggle.x()+23);
+                toggle.mouseover(function(event){
+                    toggle.fill("#BC4E76");
+                });
+                toggle.mouseout(function(event){
+                    toggle.fill("#BC4E76");
+                });
             }
             else{
-                container.fill("white")
-                toggle.fill('white');
+                container.fill("white").stroke("#A6C9C6");
+                toggle.fill('white').stroke("#C76B8D");
                 toggle.x(toggle.x()-23);
+                toggle.mouseover(function(event){
+                    toggle.fill("#C76B8D");
+                });
+                toggle.mouseout(function(event){
+                    toggle.fill("white");
+                });
             }
-            
+        
         })
     }
 
