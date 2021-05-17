@@ -44,3 +44,4 @@ var progress = new MyToolkit.Progressbar;
 var scroll = new MyToolkit.Scrollbar;
 // scroll.move(50,0);
 var toggle = new MyToolkit.Custom;
+toggle.move(1,10);

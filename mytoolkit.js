@@ -156,17 +156,16 @@ var MyToolkit = (function() {
 
     // radiobutton
     var Radiobuttons = function(r) {
-        console.log(r);
+        // console.log(r);
         var draw = SVG().addTo('body').size('100%','100%').height(r.length* 50);
         var radioButtons = draw.group()
         var y = 0;
-        var buttons = [];
+        var buttons = new Array();
         for (var i = 0; i < r.length; i++){
             y+=40
             // console.log(r[i][0]);
             var outerButton = draw.circle(27).fill('white').stroke({ color:"#c2d6d6", width: 2, linecap: 'round', linejoin: 'round' }).move(0, y);
             var txt = draw.text(r[i][0]).move(35,y+5);
-            // console.log(outerButton.y());
             var button = draw.circle(19).fill('#8DB9B6').move(4, y+4);
             if (r[i][1] == false){
                 button.hide();
@@ -179,17 +178,24 @@ var MyToolkit = (function() {
         // console.log(radioButtons.first().y());
         // console.log(radioButtons.get(1).y());
         // console.log(radioButtons.get(2).y());
-        radioButtons.each(function(event){
-            console.log()
-        });
+        // radioButtons.each(function(event){
+        //     console.log()
+        // });
+        // buttons.map(e => e.addEventListener(){
+        //     console.log(e);
+        // )};
+        
         // callbacks
         // buttons.each(function(item){
         //     console.log(item);
         // });
+        console.log(buttons);
         outerButton.click(function(event){
             console.log(outerButton.attr());
         });
-
+        buttons.map(e => e.addEventListener("click", function(){ 
+            console.log("hello"); 
+        }));
         return{
             move: function(x, y) {
                 radioButtons.move(x, y);
@@ -200,6 +206,7 @@ var MyToolkit = (function() {
 
     // textbox
     var Textbox = function() {
+        var clicked = false;
         var draw = SVG().addTo('body').size('100%','100%');
         var textbox = draw.rect(180, 25).stroke({ color:"silver", width: 2}).fill('white');
         textbox.radius(2);
@@ -209,62 +216,50 @@ var MyToolkit = (function() {
         caret.hide();
         var text = draw.text("").move(3,-1.5);
         textbox.click(function(event){
-            caret.show();
-            textbox.stroke('#3D5A80')
             
-            //remove cntrl shift alt
+            caret.show();
+            textbox.stroke('#3D5A80');
+            console.log(event);
+            // remove ctrl shift alt etc
             // console.log(textbox.size());
             SVG.on(window, 'keyup', (event) => {
                 var enterInput = "";
                 console.log(event.keyCode);
                 // console.log(event.key);
-                var eventNum = [16, 18, 33, 34,35,36, 37, 45]
+                var eventNum = [16, 17, 18, 20, 33, 34,35,36, 37, 45, 174, 175, 176, 177, 178]
                 if (event.keyCode == 8){
                     console.log(text.text());
                     text.text(text.text().substring(0, text.text().length-1));
                     caret.move(text.length()+3);
+                    if (text.length() < 180){
+                        textbox.size(180, 25);
+                    }
                 }
                 else if(eventNum.includes(event.keyCode)){
-                    console.log("Hellooo");
+                    console.log("Pass");
                 }
                 else if(event.keyCode == 13 || event.keyCode == 46 ){
                     enterInput = text.text();
                     text.text("");
                     caret.move(6,5);
                     textbox.size(180, 25);
-                    console.log(enterInput);
-                    
+                    console.log(enterInput);  
                 }
                 else if(event.keyCode == 27 ){
                     textbox.stroke({ color:"silver", width: 2}).fill('white');
                     text.text('');
+                    caret.move(6,5);
                     caret.hide();
                 }
                 else{
-                    
                     // text.remember('oldText', text.text());
                     text.text(text.text() + event.key);
                     caret.move(text.length()+3);
-                    
                     if (text.length() > 180){
                         textbox.size(10 + text.length(), 25);
-                    }
-                    
+                    }   
                 }
-                
-                // console.log(text.length());
-                // console.log(text.text());
-                // textbox.size()
-                
-                // textbox.size(textbox.x() + text.length, 25).stroke({ color:"#3D5A80", width: 2}).fill('white');  
-                
             })
-
-            // return{
-            //     getInput(function(){
-
-            //     )};
-            // }
         });
         
     }
@@ -279,6 +274,19 @@ var MyToolkit = (function() {
         var upArrow =  draw.polyline([[30,40], [40,30], [50,40]]).fill('#BC4E76').move(20, 10).stroke({ width: 4, linecap: 'round', linejoin: 'round' }).move(0,5);
         var downBtn = draw.rect(20, 20).stroke({ color:"#3D5A80", width: 2}).fill('white').move(0,150);
         var downArrow = draw.polyline([[-30,-40], [-40,-30], [-50,-40]]).fill('#BC4E76').move(20, 10).stroke({ width: 4, linecap: 'round', linejoin: 'round' }).move(0,155);
+        
+        var down = draw.group();
+        var up = draw.group();
+        down.add(downBtn);
+        down.add(downArrow);
+        up.add(upBtn);
+        up.add(upArrow);
+        
+        down.click(function(event){
+            if (scroll.y() < down.y()-30){
+            scroll.move(scroll.x(), scroll.y()+5);
+            }
+        });
         
         return {
             // move: function(x, y) {
@@ -342,6 +350,12 @@ var MyToolkit = (function() {
             }
         
         })
+        return{
+            move: function(x,y){
+                toggleButton.move(x,y);
+
+            }
+        }
     }
 
 return {Button, Checkbox, Radiobuttons, Textbox, Scrollbar, Progressbar, Custom}
