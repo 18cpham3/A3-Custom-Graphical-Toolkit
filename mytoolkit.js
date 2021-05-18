@@ -71,7 +71,7 @@ var MyToolkit = (function() {
 
     // Checkbox Widget
     var Checkbox = function() {
-        var draw = SVG().addTo('body').size('100%','100%').width(900).height(30);
+        var draw = SVG().addTo('body').size('100%','100%').width(900).height(50);
         var checkbox = draw.group()
         var checkBox1 = draw.group()
         var check = draw.group()
@@ -144,6 +144,8 @@ var MyToolkit = (function() {
         return{
             move: function(x, y) {
                 checkbox.move(x, y);
+                draw.height(draw.height() + checkbox.height());
+                draw.width(draw.width() + checkbox.width()+100);
             },
             onclick: function(eventHandler){
                 clickEvent = eventHandler
@@ -350,16 +352,50 @@ var MyToolkit = (function() {
         });
         scroll.click(function(event){
             console.log(event);
-            thumb.dy(event.clientY-thumb.y()-scroll.height());
-            console.log(thumb.y());
+            // console.log(thumb.y());
+            // var a = 0;
+            // var b = event.offsetY-thumb.y()-scroll.height()
+            thumb.dy(event.offsetY-thumb.y()-scroll.height()+150);
+            // console.log(event.offsetY-thumb.y()-scroll.height());
+            // if (b < 0){
+            //     while (b < 0){
+            //         a += 100;
+            //         b += a;
+            //     } 
+            // }
+            // else if (b > 0){
+            //     while (b > 0){
+            //         a -= 100;
+            //         b -= a;
+            //     } 
+            // }
+            // console.log(a);
+            // console.log(b);
+            console.log(event.clientY-thumb.y()-scroll.height());
+            // console.log(thumb.dy());
         });
-        thumb.click(function(event){
-            console.log("clicked");
-            console.log(thumb.node);
-            SVG.on(window, 'onmousedown', (event) => {
-                    console.log('down');
-                });
-        });
+        
+        // thumb.click(function(event){
+        //     // console.log("clicked");
+        //     // console.log(thumb);
+        // });
+        // thumb.node.addEventListener('mousedown', (event) => {
+        //     // console.log(event);
+        //     console.log(event.clientY);
+        //     // console.log(thumb.dy);
+        //     // thumb.dy(event.clientY);
+        // });
+        // thumb.node.addEventListener('mousemove', (event) => {
+        //     // console.log("up");
+        //     // console.log(event);
+        //     // thumb.dy(event.clientY);
+        // });
+        
+    thumb.node.addEventListener('mouseup', (event) => {
+        // console.log(event);
+        // thumb.dy(event.clientY);
+    });
+        
         // Make sure you are capturing events from your inner and outer rectangles (if that's how you have built your thumbbar)
         // Capture your mouse position from ClientY rather than PageY
         // actions do you need to take with the mouse to get it to move and in what sequence do they happen in
@@ -378,14 +414,31 @@ var MyToolkit = (function() {
     }
 
     // progressbar
-    var Progressbar = function(){
+    var Progressbar = function(inc, interval){
         var draw = SVG().addTo('body').size('100%','100%');
         var progressbar = draw.group();
-        var  bar = draw.rect(200, 15).stroke({ color:"#3D5A80", width: 1.5}).fill('white');
-        var progress = draw.rect(20, 12).fill("#BC4E76").move(1,1.5);
+        var bar = draw.rect(250, 12).stroke({ color:"#3D5A80", width: 1.5}).fill('white');
+        var progress = draw.rect(0, 9).fill("#BC4E76").move(1,1.5);
         progressbar.add(bar);
         progressbar.add(progress);
         progressbar.move(1,1);
+
+        return{
+            move: function(x,y){
+                progress.move(x,y)
+                bar.move(x,y)
+            },
+            setWidth: function(width){
+                progress.width(width)
+            },
+            getWidth: function(width){
+                bar.width()
+            },
+            setProgress: function(inc){
+                progress.animate(5000).width((inc/100)*bar.width()).loop()
+                
+            }
+        }
     }
 
     var Custom = function(){

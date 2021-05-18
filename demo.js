@@ -15,8 +15,8 @@ btn.onclick(function(e){
 // Mytoolkit checkbox
 var checkbox = new MyToolkit.Checkbox;
 var checkbox2 = new MyToolkit.Checkbox;
-// checkbox.move(100, 20);
-// checkbox.move(100, 20);
+checkbox.move(10, 40);
+checkbox2.move(10, 20);
 checkbox.setText("New Checkbox")
 // var checkbox2 = new MyToolkit.Checkbox;
 // checkbox.onclick(function(e){
@@ -27,8 +27,14 @@ checkbox.setText("New Checkbox")
 var r = []
 r.push(["Radiobutton 1", false])
 r.push(["Radiobutton 2", false])
-r.push(["Radiobutton 3", true])
+r.push(["Radiobutton 3", false])
 r.push(["Radiobutton 4", false])
+r.push(["Radiobutton 5", false])
+r.push(["Radiobutton 1", false])
+r.push(["Radiobutton 2", false])
+r.push(["Radiobutton 3", false])
+r.push(["Radiobutton 4", false])
+r.push(["Radiobutton 5", false])
 let rb1 = new MyToolkit.Radiobuttons(r);
 rb1.move(10,10);
 // r.onclick(function(e){
@@ -40,7 +46,22 @@ var textbox = new MyToolkit.Textbox;
 
 
 
-var progress = new MyToolkit.Progressbar;
+var pb1 = new MyToolkit.Progressbar;
+pb1.setProgress(23);
+// pb1.move(200,80);
+// pb1.size(200,10)
+// setInterval(inc, 1000);
+// 	let p = 0;
+// 	function inc(){
+// 		p += 20;
+// 		if (p>200){
+// 		p = 0;
+// 		pb1.progress(p)
+// 	}
+// 	else{
+// 		pb1.progress(20)
+// 	}
+// }
 var scroll = new MyToolkit.Scrollbar;
 // scroll.move(50,0);
 var toggle = new MyToolkit.Custom;
