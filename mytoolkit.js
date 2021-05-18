@@ -1,10 +1,12 @@
 import {SVG} from './svg.min.js';
-
+var draw = SVG().addTo('body').size('100%','100%').height(1000);
+var page = draw.group();
+page.rect(10000,10000).fill('white');
 var MyToolkit = (function() {
     //Button widget 
     
     var Button = function(){
-        var draw = SVG().addTo('body').size('100%','100%');
+        // var draw = SVG().addTo('body').size('100%','100%');
         var clickEvent = null
         
         // group button components
@@ -42,6 +44,7 @@ var MyToolkit = (function() {
             if(clickEvent != null)
                 clickEvent(event)
         })
+        page.add(btnGroup);
         return {
             setText: function(text){
                 txt.text(text);
@@ -97,6 +100,7 @@ var MyToolkit = (function() {
         checkBox1.add(txt);
         checkBox1.add(check);
         checkbox.add(checkBox1)
+        page.add(checkbox);
         // checkbox.move(20,20);
         
         
@@ -182,6 +186,8 @@ var MyToolkit = (function() {
             radioButtons.add(button);
         }
         
+        page.add(radioButtons);
+        
         outerButton.mouseover(function(event){
             outerButton.stroke('blue');
         })
@@ -224,14 +230,16 @@ var MyToolkit = (function() {
         var textbox = draw.group();
         var box = draw.rect(180, 25).stroke({ color:"silver", width: 1}).fill('white');
         box.radius(2);
-        var caret = draw.rect(2,15).move(6,5).fill('gray');
+        var text = draw.text("").move(3,-1.5);
+        var caret = draw.rect(2,20).move(textbox.x() + text.length()+3,textbox.y()).fill('gray');
         var runner = caret.animate().width(0);
         runner.loop(2000,10,10);
         caret.hide();
-        var text = draw.text("").move(3,-1.5);
         
         textbox.add(box);
         textbox.add(text);
+        textbox.add(caret);
+        page.add(textbox);
         textbox.click(function(event){
             caret.show();
             box.stroke('#3D5A80');
@@ -257,7 +265,7 @@ var MyToolkit = (function() {
                 if (event.keyCode == 8){
                     console.log(text.text());
                     text.text(text.text().substring(0, text.text().length-1));
-                    caret.move(text.length()+3);
+                    caret.move(textbox.x() + text.length()+3);
                     if (text.length() < 180){
                         box.size(180, 25);
                     }
@@ -268,25 +276,30 @@ var MyToolkit = (function() {
                 else if(event.keyCode == 13 || event.keyCode == 46 ){
                     enterInput = text.text();
                     text.text("");
-                    caret.move(6,5);
+                    caret.move(textbox.x(),textbox.y());
                     box.size(180, 25);
                     console.log(enterInput);  
                 }
                 else if(event.keyCode == 27 ){
                     box.stroke({ color:"silver", width: 2}).fill('white');
                     text.text('');
-                    caret.move(6,5);
+                    caret.move(textbox.x(),textbox.y());
                     caret.hide();
                 }
                 else{
                     // text.remember('oldText', text.text());
                     text.text(text.text() + event.key);
-                    caret.move(text.length()+3);
+                    caret.move(textbox.x() + text.length()+3);
                     if (text.length() > 180){
                         box.size(10 + text.length(), 25);
                     }   
                 }
             })
+            return{
+                move: function(x, y) {
+                    textbox.move(x, y);
+                }
+            }
         
         
     }
@@ -297,7 +310,7 @@ var MyToolkit = (function() {
         var scrollbar = draw.group();
         var scroll = draw.rect(18, 180).stroke({ color:"#3D5A80", width: 2}).fill('white');
         var upBtn = draw.rect(18, 20).stroke({ color:"#3D5A80", width: 2}).fill('white').move(0,-22);
-        var thumb = draw.rect(14, 35).fill('#A6C9C6').move(2,1);
+        var thumb = draw.rect(14, 35).fill('#A6C9C6').move(upBtn.x() + 2, upBtn.y() + 23);
         thumb.radius(3);
         scroll.radius(3);
         var downBtn = draw.rect(18, 20).stroke({ color:"#3D5A80", width: 2}).fill('white').move(0,182);
@@ -308,6 +321,7 @@ var MyToolkit = (function() {
         var down = draw.group();
         var up = draw.group();
         down.add(downBtn);
+        page.add(scrollbar);
         down.mouseover(function(event){
             downBtn.fill('#9FB4D1');
         })
@@ -342,25 +356,26 @@ var MyToolkit = (function() {
         down.add(downArrow);
         up.add(upArrow);
         scrollbar.add(scroll);
-        scrollbar.add(thumb);
         scrollbar.add(down);
         scrollbar.add(up);
+        
+        scrollbar.add(thumb);
         scrollbar.move(0,10);
         var clickinterval = 35;
         down.click(function(event){
-            
-            if (thumb.y() < scroll.height()-10){
-            thumb.move(thumb.x(), thumb.y()+clickinterval);
-            
+            console.log(thumb.y());
+            console.log(scroll.height());
+            // if (thumb.y() < scroll.height()){
+            // thumb.move(thumb.x(), thumb.y()+clickinterval);
+            if(thumb.y() < down.y()-50){
+                thumb.move(thumb.x(),thumb.y()+clickinterval)
             }
         });
         up.click(function(event){
             // console.log(upBtn.width());
-            console.log(up.y());
-            if (thumb.y() > upBtn.width() + 20){
-            thumb.move(thumb.x(), thumb.y()-clickinterval);
-            // thumb.dy(-clickinterval);
-            console.log(thumb.y());
+            if(thumb.y()-40 > up.y()){
+                thumb.move(thumb.x(),thumb.y()-clickinterval)
+            
             }
             // else if (thumb.y() - clickinterval < upBtn.y()){
             //     thumb.move(thumb.x(), 0);
@@ -404,12 +419,12 @@ var MyToolkit = (function() {
 
         // });
         return {
-            // move: function(x, y) {
-            //     btn.move(x, y);
-            // },
-            // onclick: function(eventHandler){
-            //     clickEvent = eventHandler
-            // }
+            move: function(x, y) {
+                scrollbar.move(x, y);
+            },
+            onclick: function(eventHandler){
+                clickEvent = eventHandler
+            }
         }
     }
 
@@ -419,10 +434,11 @@ var MyToolkit = (function() {
         var draw = SVG().addTo('body').size('100%','100%');
         var progressbar = draw.group();
         var bar = draw.rect(250, 12).stroke({ color:"#3D5A80", width: 1.5}).fill('white');
-        var progress = draw.rect(0, 9).fill("#BC4E76").move(1,1.5);
+        var progress = draw.rect(0, 9).fill("#BC4E76").move(1,2);
         progressbar.add(bar);
         progressbar.add(progress);
         progressbar.move(1,1);
+        page.add(progressbar);
 
         return{
             move: function(x,y){
@@ -463,7 +479,7 @@ var MyToolkit = (function() {
         toggleButton.add(container);
         toggleButton.add(toggle);
         toggleButton.move(10,10);
-
+        page.add(toggleButton);
         toggle.mouseover(function(event){
             toggle.fill("#91AACA");
         });

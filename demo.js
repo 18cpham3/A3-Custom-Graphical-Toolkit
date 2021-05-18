@@ -5,7 +5,7 @@ import {MyToolkit} from './mytoolkit.js';
 // Implement a MyToolkit Button
 var btn = new MyToolkit.Button;
 
-btn.move(100,100);
+btn.move(50,100);
 btn.setText("Button 1");
 // btn.setColor('red')
 btn.onclick(function(e){
@@ -15,8 +15,8 @@ btn.onclick(function(e){
 // Mytoolkit checkbox
 var checkbox = new MyToolkit.Checkbox;
 var checkbox2 = new MyToolkit.Checkbox;
-checkbox.move(10, 40);
-checkbox2.move(10, 20);
+checkbox.move(50, 200);
+checkbox2.move(50, 250);
 checkbox.setText("New Checkbox")
 // var checkbox2 = new MyToolkit.Checkbox;
 // checkbox.onclick(function(e){
@@ -30,19 +30,16 @@ r.push(["Radiobutton 2", false])
 r.push(["Radiobutton 3", false])
 r.push(["Radiobutton 4", false])
 r.push(["Radiobutton 5", false])
-r.push(["Radiobutton 1", false])
-r.push(["Radiobutton 2", false])
-r.push(["Radiobutton 3", false])
-r.push(["Radiobutton 4", false])
-r.push(["Radiobutton 5", false])
+
 let rb1 = new MyToolkit.Radiobuttons(r);
-rb1.move(10,10);
+rb1.move(50,300);
 // r.onclick(function(e){
 // 	console.log(e);
 // });
 
 // Mytoolkit textbox
-var textbox = new MyToolkit.Textbox;
+var tb = new MyToolkit.Textbox;
+tb.move(300, 100)
 
 
 
@@ -63,7 +60,8 @@ pb1.getIncrement();
 // 		pb1.progress(20)
 // 	}
 // }
+pb1.move(300, 160);
 var scroll = new MyToolkit.Scrollbar;
-// scroll.move(50,0);
+scroll.move(450,200);
 var toggle = new MyToolkit.Custom;
-toggle.move(1,10);
+toggle.move(300,300);
