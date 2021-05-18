@@ -169,7 +169,7 @@ var MyToolkit = (function() {
         for (var i = 0; i < r.length; i++){
             y+=40
             // console.log(r[i][0]);
-            var outerButton = draw.circle(27).fill('white').stroke({ color:"#c2d6d6", width: 2, linecap: 'round', linejoin: 'round' }).move(0, y);
+            var outerButton = draw.circle(27).fill('white').stroke({ color:"silver", width: 2, linecap: 'round', linejoin: 'round' }).move(0, y);
             var txt = draw.text(r[i][0]).move(35,y+5);
             if (r[i][1] == true){
                 button.move(4, y+4);
@@ -181,6 +181,10 @@ var MyToolkit = (function() {
             radioButtons.add(txt);
             radioButtons.add(button);
         }
+        
+        outerButton.mouseover(function(event){
+            outerButton.stroke('blue');
+        })
         if (allFalse == true){
             button.show().move(4, 44);
         }
@@ -190,7 +194,22 @@ var MyToolkit = (function() {
         });
         buttons.map(e => e.node.addEventListener("click", function(){ 
             button.move(e.x()+4, e.y()+4);
+           
         }));
+        buttons.map(e => e.node.addEventListener("mouseover", function(){ 
+            e.stroke("#67A29C");
+            
+        }));
+        buttons.map(e => e.node.addEventListener("mouseout", function(){ 
+            e.stroke("silver");
+            e.fill("white");
+        }));
+        button.mouseover(function(event){
+            button.fill("white").stroke({color:'#B3D0CE', width:2});
+        })
+        button.mouseout(function(event){
+            button.fill("#8DB9B6").stroke({color:'#8DB9B6', width:0});
+        })
         return{
             move: function(x, y) {
                 radioButtons.move(x, y);
@@ -234,7 +253,7 @@ var MyToolkit = (function() {
                 box.stroke({ color:'#3D5A80', width: 1.5});
                 caret.show();
                 // console.log(event.key);
-                var eventNum = [16, 17, 18, 20, 33, 34,35,36, 37, 45, 174, 175, 176, 177, 178]
+                var eventNum = [16, 17, 18, 20, 33, 34, 35, 36, 37, 45, 174, 175, 176, 177, 178]
                 if (event.keyCode == 8){
                     console.log(text.text());
                     text.text(text.text().substring(0, text.text().length-1));
@@ -276,16 +295,14 @@ var MyToolkit = (function() {
     var Scrollbar = function() {
         var draw = SVG().addTo('body').size('100%','100%').height(400);
         var scrollbar = draw.group();
-        var scroll = draw.rect(18, 150).stroke({ color:"#3D5A80", width: 2}).fill('white');
+        var scroll = draw.rect(18, 180).stroke({ color:"#3D5A80", width: 2}).fill('white');
         var upBtn = draw.rect(18, 20).stroke({ color:"#3D5A80", width: 2}).fill('white').move(0,-22);
         var thumb = draw.rect(14, 35).fill('#A6C9C6').move(2,1);
         thumb.radius(3);
         scroll.radius(3);
-        // draw.polyline([[30,40], [40,30], [50,40]]).fill('#BC4E76').move(20, 10).stroke({ width: 4, linecap: 'round', linejoin: 'round' }).move(0,5);
-        var downBtn = draw.rect(18, 20).stroke({ color:"#3D5A80", width: 2}).fill('white').move(0,152);
-        //  draw.polyline([[-30,-40], [-40,-30], [-50,-40]]).fill('#BC4E76').move(20, 10).stroke({ width: 4, linecap: 'round', linejoin: 'round' }).move(0,165);
+        var downBtn = draw.rect(18, 20).stroke({ color:"#3D5A80", width: 2}).fill('white').move(0,182);
         var upArrow =  draw.text("⯅").move(1.5,-19);
-        var downArrow = draw.text("⯆").move(1.5,152);
+        var downArrow = draw.text("⯆").move(1.5,182);
         downBtn.radius(3);
         upBtn.radius(3);
         var down = draw.group();
@@ -331,11 +348,10 @@ var MyToolkit = (function() {
         scrollbar.move(0,10);
         var clickinterval = 35;
         down.click(function(event){
-            if (thumb.y() <= downBtn.y() - 40){
+            
+            if (thumb.y() < scroll.height()-10){
             thumb.move(thumb.x(), thumb.y()+clickinterval);
-            // thumb.dy(clickinterval);
-            console.log(down.y());
-            console.log(thumb.y());
+            
             }
         });
         up.click(function(event){
@@ -352,49 +368,33 @@ var MyToolkit = (function() {
         });
         scroll.click(function(event){
             console.log(event);
-            // console.log(thumb.y());
-            // var a = 0;
-            // var b = event.offsetY-thumb.y()-scroll.height()
             thumb.dy(event.offsetY-thumb.y()-scroll.height()+150);
-            // console.log(event.offsetY-thumb.y()-scroll.height());
-            // if (b < 0){
-            //     while (b < 0){
-            //         a += 100;
-            //         b += a;
-            //     } 
-            // }
-            // else if (b > 0){
-            //     while (b > 0){
-            //         a -= 100;
-            //         b -= a;
-            //     } 
-            // }
-            // console.log(a);
-            // console.log(b);
             console.log(event.clientY-thumb.y()-scroll.height());
-            // console.log(thumb.dy());
         });
+        // console.log(scrollbar);
+        // thumb.mouseup(function()){}
+        // thumb.mousedown(function(){
+        //     scroll.click(function(event){
+        //         // console.log(event);
+        //         thumb.dy(event.offsetY-thumb.y()-scroll.height()+150);
+        //         console.log(event.clientY-thumb.y()-scroll.height());
+        //     });
+            
+        //     SVG.on(scroll,'mousemove',(event)=>{
+        //         console.log(thumb.point(event.pageX, event.pageY));
+        //         if (event.clientY >thumb.y()){
+        //             console.log(thumb.y());
+        //             if(thumb.y()<scroll.height()){
+        //                 thumb.dy(thumb.x(),event.clientY+thumb.y())             
+        //             }
+        //         }
+        //     })
+        // })
         
-        // thumb.click(function(event){
-        //     // console.log("clicked");
-        //     // console.log(thumb);
-        // });
-        // thumb.node.addEventListener('mousedown', (event) => {
-        //     // console.log(event);
-        //     console.log(event.clientY);
-        //     // console.log(thumb.dy);
-        //     // thumb.dy(event.clientY);
-        // });
-        // thumb.node.addEventListener('mousemove', (event) => {
-        //     // console.log("up");
-        //     // console.log(event);
-        //     // thumb.dy(event.clientY);
-        // });
-        
-    thumb.node.addEventListener('mouseup', (event) => {
-        // console.log(event);
-        // thumb.dy(event.clientY);
-    });
+        thumb.addEventListener('drag', (event) => {
+            // console.log(event);
+            // thumb.dy(event.clientY);
+        });
         
         // Make sure you are capturing events from your inner and outer rectangles (if that's how you have built your thumbbar)
         // Capture your mouse position from ClientY rather than PageY
@@ -415,6 +415,7 @@ var MyToolkit = (function() {
 
     // progressbar
     var Progressbar = function(inc, interval){
+        var increment = 0;
         var draw = SVG().addTo('body').size('100%','100%');
         var progressbar = draw.group();
         var bar = draw.rect(250, 12).stroke({ color:"#3D5A80", width: 1.5}).fill('white');
@@ -434,10 +435,20 @@ var MyToolkit = (function() {
             getWidth: function(width){
                 bar.width()
             },
-            setProgress: function(inc){
-                progress.animate(5000).width((inc/100)*bar.width()).loop()
-                
-            }
+            getIncrement: function(){
+                console.log(increment)
+            },
+            setIncrement: function(inc){
+                increment += inc;
+                progress.size(0,10)
+                var runner = progress.animate({
+                    duration: 2000,
+                    when: 'now',
+                    swing: true,
+                    // times: 5,
+                    wait: 200
+                  }).width(increment).loop()
+            },
         }
     }
 

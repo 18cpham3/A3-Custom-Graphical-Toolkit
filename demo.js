@@ -47,7 +47,8 @@ var textbox = new MyToolkit.Textbox;
 
 
 var pb1 = new MyToolkit.Progressbar;
-pb1.setProgress(23);
+pb1.setIncrement(23);
+pb1.getIncrement();
 // pb1.move(200,80);
 // pb1.size(200,10)
 // setInterval(inc, 1000);
