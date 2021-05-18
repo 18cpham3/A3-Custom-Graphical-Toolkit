@@ -350,11 +350,12 @@ var MyToolkit = (function() {
         });
         scroll.click(function(event){
             console.log(event);
-            thumb.dy(event.clientY-thumb.y());
+            thumb.dy(event.clientY-thumb.y()-scroll.height());
             console.log(thumb.y());
         });
         thumb.click(function(event){
             console.log("clicked");
+            console.log(thumb.node);
             SVG.on(window, 'onmousedown', (event) => {
                     console.log('down');
                 });
@@ -390,9 +391,9 @@ var MyToolkit = (function() {
     var Custom = function(){
         var draw = SVG().addTo('body').size('100%','100%');
         var toggleButton = draw.group();
-        var container = draw.rect(54,30).stroke({color:"#A6C9C6", width: 2}).fill('white');
+        var container = draw.rect(54,30).stroke({color:"#91AACA", width: 2}).fill('white');
         var x = container.x() + 3;
-        var toggle = draw.circle(25,25).stroke({color:"#DDA6BA", width: 2}).fill('white').move(x,2.5);
+        var toggle = draw.circle(25,25).stroke({color:"#91AACA", width: 2}).fill('white').move(x,2.5);
         container.radius(15);
         
         toggleButton.add(container);
@@ -400,7 +401,7 @@ var MyToolkit = (function() {
         toggleButton.move(10,10);
 
         toggle.mouseover(function(event){
-            toggle.fill("#DDA6BA");
+            toggle.fill("#91AACA");
         });
         toggle.mouseout(function(event){
             toggle.fill("white");
@@ -408,27 +409,30 @@ var MyToolkit = (function() {
         toggleButton.click(function(event){
             console.log(toggle.x());
             if (toggle.x() == container.x()+3){
-                container.fill("#B3D0CE").stroke("#5D9895");
-                toggle.fill("#BC4E76").stroke("#BC4E76");
+                container.fill("#91AACA")
+                // .stroke("#688AB6");
+                toggle.fill("#91AACA").stroke("#3C587C");
                 // toggle.animate.move(toggle.x()+23, 2.5);
                 toggle.x(toggle.x()+23);
                 toggle.mouseover(function(event){
-                    toggle.fill("#C15C81").stroke('#C15C81');
+                    toggle.fill("#496B97").stroke('#3C587C');
                 });
                 toggle.mouseout(function(event){
-                    toggle.fill("#BC4E76");
+                    toggle.fill("#3C587C");
                 });
             }
             else{
-                container.fill("white").stroke("#A6C9C6");
-                toggle.fill('white').stroke("#DDA6BA");
+                container.fill("white").stroke("#91AACA");
+                toggle.fill('white').stroke("#91AACA");
                 toggle.x(toggle.x()-23);
                 toggle.mouseover(function(event){
-                    toggle.fill("#DDA6BA").stroke("#DDA6BA");
+                    toggle.fill("#91AACA").stroke("#91AACA");
                 });
                 toggle.mouseout(function(event){
                     toggle.fill("white");
                 });
+                
+
             }
         
         })
