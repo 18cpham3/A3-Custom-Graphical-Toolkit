@@ -340,14 +340,14 @@ var MyToolkit = (function() {
         var mouseupEvent = null
 
         var scrollbar = draw.group();
-        var scroll = draw.rect(18, 180).stroke({ color:"#3D5A80", width: 2}).fill('white');
-        var upBtn = draw.rect(18, 20).fill('silver').move(0,-22);
-        var thumb = draw.rect(14, 35).fill('#A6C9C6').move(upBtn.x() + 2, upBtn.y() + 23);
+        var scroll = draw.rect(16, 180).stroke({ color:"#3D5A80", width: 1}).fill('white').move(1,2);
+        var upBtn = draw.rect(18, 19).fill('silver').move(0,-19);
+        var thumb = draw.rect(12, 35).fill('#A6C9C6').move(upBtn.x() + 3, upBtn.y() + 22);
         thumb.radius(3);
         scroll.radius(3);
-        var downBtn = draw.rect(18, 20).fill('silver').move(0,182);
-        var upArrow =  draw.text("⯅").move(1.5,-19);
-        var downArrow = draw.text("⯆").move(1.5,182);
+        var downBtn = draw.rect(18, 19).fill('silver').move(0,183);
+        var upArrow =  draw.text("⯅").move(1.5,-14);
+        var downArrow = draw.text("⯆").move(1.5,179);
         downBtn.radius(6);
         upBtn.radius(6);
         var down = draw.group();

@@ -65,6 +65,6 @@ pb1.getIncrement();
 // }
 pb1.move(300, 160);
 var scroll = new MyToolkit.Scrollbar;
-scroll.move(450,200);
+scroll.move(480,200);
 var toggle = new MyToolkit.Toggle;
 toggle.move(300,300);
