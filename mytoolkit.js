@@ -533,10 +533,10 @@ var MyToolkit = (function() {
                 toggle.fill("#91AACA").stroke("#3C587C");
                 toggle.x(toggle.x()+23);
                 toggle.mouseover(function(event){
-                    toggle.fill("#496B97").stroke('#3C587C');
+                    toggle.fill("#5075A5").stroke('#5075A5');
                 });
                 toggle.mouseout(function(event){
-                    toggle.fill("#3C587C");
+                    toggle.fill("#3C587C").stroke('#3C587C');
                 });
             }
             else{
@@ -547,7 +547,7 @@ var MyToolkit = (function() {
                     toggle.fill("#91AACA").stroke("#91AACA");
                 });
                 toggle.mouseout(function(event){
-                    toggle.fill("white");
+                    toggle.fill("white").stroke("#91AACA");
                 });
             }
         })
