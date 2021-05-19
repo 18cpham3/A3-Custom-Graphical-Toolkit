@@ -14,10 +14,13 @@ btn.onclick(function(e){
 
 // Mytoolkit checkbox
 var checkbox = new MyToolkit.Checkbox;
-var checkbox2 = new MyToolkit.Checkbox;
-checkbox.move(50, 200);
-checkbox2.move(50, 250);
-checkbox.setText("New Checkbox")
+// var checkbox2 = new MyToolkit.Checkbox;
+checkbox.move(50, 210);
+// checkbox2.move(50, 250);
+checkbox.setText("Checkbox 1")
+checkbox.onclick(function(e){
+	console.log(e);
+});
 // var checkbox2 = new MyToolkit.Checkbox;
 // checkbox.onclick(function(e){
 // 	console.log(e);
@@ -63,5 +66,5 @@ pb1.getIncrement();
 pb1.move(300, 160);
 var scroll = new MyToolkit.Scrollbar;
 scroll.move(450,200);
-var toggle = new MyToolkit.Custom;
+var toggle = new MyToolkit.Toggle;
 toggle.move(300,300);

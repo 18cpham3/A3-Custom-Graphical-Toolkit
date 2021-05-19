@@ -3,33 +3,34 @@ var draw = SVG().addTo('body').size('100%','100%').height(1000);
 var page = draw.group();
 page.rect(10000,10000).fill('white');
 var MyToolkit = (function() {
-    //Button widget 
-    
+
     var Button = function(){
         // var draw = SVG().addTo('body').size('100%','100%');
         var clickEvent = null
-        
-        // group button components
-        var btnGroup = draw.group();
+        var mouseoverEvent = null
+        var mouseoutEvent = null
+        var mouseupEvent = null
         
         // create button
+        var btnGroup = draw.group();
         var btn = draw.rect(86,35).fill("#BC4E76");
         var txt = draw.text("Button 1").fill('#F6F3F7').move(15,8);
-        
-
-        
+       
         // customize button
         btn.radius(20);
 
-        // add to button group
+        // button group
         btnGroup.add(btn);
         btnGroup.add(txt);
         txt.font('middle');
-        ;
+        
+        // add to page
+        page.add(btnGroup);
         
         // callbacks
         btnGroup.mouseover(function(){
             btn.fill({ color: 'pink'}).stroke({ width: 0, linecap: 'round', linejoin: 'round' })
+            
         })
         btnGroup.mouseout(function(){
             btn.stroke({ width: 0, linecap: 'round', linejoin: 'round' }).fill("#BC4E76")
@@ -44,7 +45,7 @@ var MyToolkit = (function() {
             if(clickEvent != null)
                 clickEvent(event)
         })
-        page.add(btnGroup);
+
         return {
             setText: function(text){
                 txt.text(text);
@@ -68,12 +69,28 @@ var MyToolkit = (function() {
                     btn.fill({ color: '#FA9189'}).stroke({ color:color, width: 2, linecap: 'round', linejoin: 'round' }).fill("white")
                     txt.fill(color);
                 })
+            },
+            onclick: function(eventHandler){
+                clickEvent = eventHandler;
+            },
+            onmouseout: function(eventHandler){
+                mouseoverEvent = eventHandler;
+            },
+            onmouseup: function(eventHandler){
+                mouseoutEvent = eventHandler;
+            },
+            onmouseover: function(eventHandler){
+                mouseupEvent = eventHandler;
             }
         }
     }
 
-    // Checkbox Widget
     var Checkbox = function() {
+        var clickEvent = null
+        var mouseoverEvent = null
+        var mouseoutEvent = null
+        var mouseupEvent = null
+
         var draw = SVG().addTo('body').size('100%','100%').width(900).height(50);
         var checkbox = draw.group()
         var checkBox1 = draw.group()
@@ -81,34 +98,28 @@ var MyToolkit = (function() {
         var clickEvent = null;
         var check;
 
-
         // checkbox text
         var txt = draw.text('Checkbox item').move(35, 8);
+
         // create checkbox
         var box = draw.rect(25,25).stroke({ color:"#BC4E76", width: 3, linecap: 'round', linejoin: 'round' }).fill("white").move(3,3);
         var line = draw.line(0, 0, 18, 18).move(6.5, 6.5).stroke({ color: '#A6C9C6', width: 2, linecap: 'round' })
         var line2 = draw.line(0, 18, 18, 0).move(6.5, 6.5).stroke({ color: '#A6C9C6', width: 2, linecap: 'round' })
         
         // customize textbox
-        //#7594BD
         box.radius(2);
-        // group checkbox
-        
+
+        // checkbox group
         check.add(line);
         check.add(line2);
         checkBox1.add(box);
         checkBox1.add(txt);
         checkBox1.add(check);
         checkbox.add(checkBox1)
-        page.add(checkbox);
-        // checkbox.move(20,20);
-        
-        
-    //[30,40], [50,10], [70,40], [50,60], [30,40]
-    // var polyline = draw.polyline([[30,40], [40,10], [50,40]])
-    // polyline.fill('#BC4E76').move(20, 10)
-    // polyline.stroke({ width: 4, linecap: 'round', linejoin: 'round' })
 
+        // add to page
+        page.add(checkbox);
+        
         // callbacks
         checkBox1.mouseover(function(){
             box.stroke({color: 'pink', width: 3, linecap: 'round', linejoin: 'round' })
@@ -125,18 +136,9 @@ var MyToolkit = (function() {
                 box.stroke("silver");
             }
         })
-        // btnGroup.mouseup(function(){
-        //     btn.fill({ color: 'orange'})
-        // })
-        
-
         checkBox1.click(function(event){
-            // console.log(check.visible());
             if(check.visible() == true){
                 check.hide();
-                // if(check.visible() == false){
-                //     box.stroke("gray");
-                // };
             }
             else{
                 check.show();
@@ -156,20 +158,36 @@ var MyToolkit = (function() {
             },
             setText: function(text){
                 txt.text(text);
+            },
+            onclick: function(eventHandler){
+                clickEvent = eventHandler
+            },
+            onmouseout: function(eventHandler){
+                mouseoverEvent = eventHandler
+                console.log(eventHandler);
+            },
+            onmouseover: function(eventHandler){
+                mouseupEvent = eventHandler
             }
         }
     }
 
-    // radiobutton
     var Radiobuttons = function(r) {
-        // console.log(r);
-        var draw = SVG().addTo('body').size('100%','100%').height(r.length* 50);
+        // var draw = SVG().addTo('body').size('100%','100%').height(r.length* 50);
+
+        var clickEvent = null
+        var mouseoverEvent = null
+        var mouseoutEvent = null
+        var mouseupEvent = null
+
         var radioButtons = draw.group()
         var y = 0;
         var buttons = new Array();
         var allFalse = true;
         var button = draw.circle(19).fill('#8DB9B6').move(4, y+4);
         button.hide();
+
+        // create and group RadioButtons
         for (var i = 0; i < r.length; i++){
             y+=40
             // console.log(r[i][0]);
@@ -186,6 +204,7 @@ var MyToolkit = (function() {
             radioButtons.add(button);
         }
         
+        // add to page
         page.add(radioButtons);
         
         outerButton.mouseover(function(event){
@@ -194,10 +213,8 @@ var MyToolkit = (function() {
         if (allFalse == true){
             button.show().move(4, 44);
         }
-        console.log(buttons);
-        outerButton.click(function(event){
-            console.log(outerButton.attr());
-        });
+        
+        // callbacks
         buttons.map(e => e.node.addEventListener("click", function(){ 
             button.move(e.x()+4, e.y()+4);
            
@@ -223,27 +240,36 @@ var MyToolkit = (function() {
         }
     }
 
-    // textbox
     var Textbox = function() {
-        var clicked = false;
-        var draw = SVG().addTo('body').size('100%','100%');
+        // var draw = SVG().addTo('body').size('100%','100%');
+        var clickEvent = null
+        var mouseoverEvent = null
+        var mouseoutEvent = null
+        var mouseupEvent = null
+
         var textbox = draw.group();
         var box = draw.rect(180, 25).stroke({ color:"silver", width: 1}).fill('white');
-        box.radius(2);
         var text = draw.text("").move(3,-1.5);
         var caret = draw.rect(2,20).move(textbox.x() + text.length()+3,textbox.y()).fill('gray');
         var runner = caret.animate().width(0);
         runner.loop(2000,10,10);
+
         caret.hide();
-        
+        box.radius(2);
+
+        // textbox group
         textbox.add(box);
         textbox.add(text);
         textbox.add(caret);
         page.add(textbox);
+
+        //callbacks
         textbox.click(function(event){
             caret.show();
             box.stroke('#3D5A80');
-            console.log(event);
+            // console.log(event);
+            if(clickEvent != null)
+                clickEvent(event)
             
         });
         textbox.mouseover(function(event){
@@ -261,7 +287,8 @@ var MyToolkit = (function() {
                 box.stroke({ color:'#3D5A80', width: 1.5});
                 caret.show();
                 // console.log(event.key);
-                var eventNum = [16, 17, 18, 20, 33, 34, 35, 36, 37, 45, 174, 175, 176, 177, 178]
+
+                var eventKeyNum = [16, 17, 18, 20, 33, 34, 35, 36, 37, 44, 45, 91, 174, 175, 176, 177, 178]
                 if (event.keyCode == 8){
                     console.log(text.text());
                     text.text(text.text().substring(0, text.text().length-1));
@@ -269,9 +296,9 @@ var MyToolkit = (function() {
                     if (text.length() < 180){
                         box.size(180, 25);
                     }
-                }
-                else if(eventNum.includes(event.keyCode)){
-                    console.log("Pass");
+                }   
+                else if(eventKeyNum.includes(event.keyCode)){
+                    console.log("Special eventkey " + event.keyCode);
                 }
                 else if(event.keyCode == 13 || event.keyCode == 46 ){
                     enterInput = text.text();
@@ -287,7 +314,6 @@ var MyToolkit = (function() {
                     caret.hide();
                 }
                 else{
-                    // text.remember('oldText', text.text());
                     text.text(text.text() + event.key);
                     caret.move(textbox.x() + text.length()+3);
                     if (text.length() > 180){
@@ -298,35 +324,55 @@ var MyToolkit = (function() {
             return{
                 move: function(x, y) {
                     textbox.move(x, y);
+                },
+                onclick: function(eventHandler){
+                    clickEvent = eventHandler
                 }
             }
-        
-        
     }
 
-    // scrollbar
     var Scrollbar = function() {
-        var draw = SVG().addTo('body').size('100%','100%').height(400);
+        // var draw = SVG().addTo('body').size('100%','100%').height(400);
+
+        var clickEvent = null
+        var mouseoverEvent = null
+        var mouseoutEvent = null
+        var mouseupEvent = null
+
         var scrollbar = draw.group();
         var scroll = draw.rect(18, 180).stroke({ color:"#3D5A80", width: 2}).fill('white');
-        var upBtn = draw.rect(18, 20).stroke({ color:"#3D5A80", width: 2}).fill('white').move(0,-22);
+        var upBtn = draw.rect(18, 20).fill('silver').move(0,-22);
         var thumb = draw.rect(14, 35).fill('#A6C9C6').move(upBtn.x() + 2, upBtn.y() + 23);
         thumb.radius(3);
         scroll.radius(3);
-        var downBtn = draw.rect(18, 20).stroke({ color:"#3D5A80", width: 2}).fill('white').move(0,182);
+        var downBtn = draw.rect(18, 20).fill('silver').move(0,182);
         var upArrow =  draw.text("⯅").move(1.5,-19);
         var downArrow = draw.text("⯆").move(1.5,182);
-        downBtn.radius(3);
-        upBtn.radius(3);
+        downBtn.radius(6);
+        upBtn.radius(6);
         var down = draw.group();
         var up = draw.group();
+
+        //scrollbar group
         down.add(downBtn);
+        up.add(upBtn);
+        down.add(downArrow);
+        up.add(upArrow);
+        scrollbar.add(scroll);
+        scrollbar.add(down);
+        scrollbar.add(up);
+        scrollbar.add(thumb);
+        scrollbar.move(0,10);
+
+        // add to page
         page.add(scrollbar);
+
+        // callbacks
         down.mouseover(function(event){
             downBtn.fill('#9FB4D1');
         })
         down.mouseout(function(event){
-            downBtn.fill('white');
+            downBtn.fill('silver');
         })
         down.click(function(event){
             downBtn.fill('#3D5A80');
@@ -338,7 +384,7 @@ var MyToolkit = (function() {
             upBtn.fill('#3D5A80');
         })
         up.mouseout(function(event){
-            upBtn.fill('white');
+            upBtn.fill('silver');
         })
         scroll.mouseover(function(event){
             scroll.fill('#E6EFEF');
@@ -352,15 +398,6 @@ var MyToolkit = (function() {
         thumb.mouseout(function(event){
             thumb.fill('#A6C9C6');
         })
-        up.add(upBtn);
-        down.add(downArrow);
-        up.add(upArrow);
-        scrollbar.add(scroll);
-        scrollbar.add(down);
-        scrollbar.add(up);
-        
-        scrollbar.add(thumb);
-        scrollbar.move(0,10);
         var clickinterval = 35;
         down.click(function(event){
             console.log(thumb.y());
@@ -386,6 +423,8 @@ var MyToolkit = (function() {
             thumb.dy(event.offsetY-thumb.y()-scroll.height()+150);
             console.log(event.clientY-thumb.y()-scroll.height());
         });
+
+        // thumb drag (doesn't work :( ))
         // console.log(scrollbar);
         // thumb.mouseup(function()){}
         // thumb.mousedown(function(){
@@ -405,12 +444,6 @@ var MyToolkit = (function() {
         //         }
         //     })
         // })
-        
-        thumb.addEventListener('drag', (event) => {
-            // console.log(event);
-            // thumb.dy(event.clientY);
-        });
-        
         // Make sure you are capturing events from your inner and outer rectangles (if that's how you have built your thumbbar)
         // Capture your mouse position from ClientY rather than PageY
         // actions do you need to take with the mouse to get it to move and in what sequence do they happen in
@@ -428,17 +461,19 @@ var MyToolkit = (function() {
         }
     }
 
-    // progressbar
     var Progressbar = function(inc, interval){
         var increment = 0;
         var draw = SVG().addTo('body').size('100%','100%');
         var progressbar = draw.group();
         var bar = draw.rect(250, 12).stroke({ color:"#3D5A80", width: 1.5}).fill('white');
         var progress = draw.rect(0, 9).fill("#BC4E76").move(1,2);
+
+        // progressbar group
         progressbar.add(bar);
         progressbar.add(progress);
-        progressbar.move(1,1);
         page.add(progressbar);
+        
+        progressbar.move(1,1);
 
         return{
             move: function(x,y){
@@ -468,7 +503,7 @@ var MyToolkit = (function() {
         }
     }
 
-    var Custom = function(){
+    var Toggle = function(){
         var draw = SVG().addTo('body').size('100%','100%');
         var toggleButton = draw.group();
         var container = draw.rect(54,30).stroke({color:"#91AACA", width: 2}).fill('white');
@@ -476,10 +511,15 @@ var MyToolkit = (function() {
         var toggle = draw.circle(25,25).stroke({color:"#91AACA", width: 2}).fill('white').move(x,2.5);
         container.radius(15);
         
+        // toggle group
         toggleButton.add(container);
         toggleButton.add(toggle);
         toggleButton.move(10,10);
+
+        // add to page
         page.add(toggleButton);
+
+        // callback
         toggle.mouseover(function(event){
             toggle.fill("#91AACA");
         });
@@ -490,9 +530,7 @@ var MyToolkit = (function() {
             console.log(toggle.x());
             if (toggle.x() == container.x()+3){
                 container.fill("#91AACA")
-                // .stroke("#688AB6");
                 toggle.fill("#91AACA").stroke("#3C587C");
-                // toggle.animate.move(toggle.x()+23, 2.5);
                 toggle.x(toggle.x()+23);
                 toggle.mouseover(function(event){
                     toggle.fill("#496B97").stroke('#3C587C');
@@ -511,20 +549,16 @@ var MyToolkit = (function() {
                 toggle.mouseout(function(event){
                     toggle.fill("white");
                 });
-                
-
             }
-        
         })
         return{
             move: function(x,y){
                 toggleButton.move(x,y);
-
             }
         }
     }
 
-return {Button, Checkbox, Radiobuttons, Textbox, Scrollbar, Progressbar, Custom}
+return {Button, Checkbox, Radiobuttons, Textbox, Scrollbar, Progressbar, Toggle}
 }());
 
 export{MyToolkit}
