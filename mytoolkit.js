@@ -346,8 +346,8 @@ var MyToolkit = (function() {
         thumb.radius(3);
         scroll.radius(3);
         var downBtn = draw.rect(18, 19).fill('silver').move(0,183);
-        var upArrow =  draw.text("⯅").move(1.5,-14);
-        var downArrow = draw.text("⯆").move(1.5,179);
+        var upArrow =  draw.text("⯅").move(1.5,-17);
+        var downArrow = draw.text("⯆").move(1.5,183);
         downBtn.radius(6);
         upBtn.radius(6);
         var down = draw.group();
