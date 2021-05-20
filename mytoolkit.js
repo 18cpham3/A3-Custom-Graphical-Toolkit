@@ -416,8 +416,8 @@ var MyToolkit = (function() {
             })
             return{
                 /** Sets textbox x and y coordinate on the page
-                 * @param  {number} x
-                 * @param  {number} y
+                 * @param  {number} x - x coordinate
+                 * @param  {number} y - y coordinate
                  */
                 move: function(x, y) {
                     textbox.move(x, y);
@@ -607,8 +607,8 @@ var MyToolkit = (function() {
                 
             },
             /** Sets scrollbar x and y coordinate on the page
-                 * @param  {number} x
-                 * @param  {number} y
+                 * @param  {number} x - x coordinate
+                 * @param  {number} y - y coordinate
             */
             move: function(x, y) {
                 scrollbar.move(x, y);
