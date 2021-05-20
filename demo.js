@@ -9,28 +9,28 @@ btn.move(50,100);
 btn.setText("Button 1");
 
 btn.onclick(function(e){
-	console.log(e);
+	console.log(`Button: ${e}`);
 });
 btn.onmouseover(function(e){
-	console.log(e);
+	console.log(`Button: ${e}`);
 });
 btn.onmouseout(function(e){
-	console.log(e);
+	console.log(`Button: ${e}`);
 });
 btn.onmouseup(function(e){
-	console.log(e);
+	console.log(`Button: ${e}`);
 });
 
 // Mytoolkit checkbox
 var cb = new MyToolkit.Checkbox;
 cb.onclick(function(e){
-	console.log(e);
+	console.log(`Cb: ${e}`);
 });
 cb.onmouseover(function(e){
-	console.log(e);
+	console.log(`Cb: ${e}`);
 });
 cb.onmouseout(function(e){
-	console.log(e);
+	console.log(`Cb: ${e}`);
 });
 cb.move(50, 210);
 cb.setText("Checkbox 1")
@@ -54,11 +54,13 @@ var tb = new MyToolkit.Textbox;
 tb.move(300, 100)
 
 
-
+// Mytoolkit Progressbar
 var pb1 = new MyToolkit.Progressbar;
 pb1.setIncrement(23);
 pb1.getIncrement();
 pb1.move(300, 160);
+
+//Mytoolkit Scrollbar
 var scroll = new MyToolkit.Scrollbar;
 scroll.move(480,200);
 var toggle = new MyToolkit.Toggle;
