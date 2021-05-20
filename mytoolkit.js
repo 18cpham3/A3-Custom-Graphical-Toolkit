@@ -12,7 +12,7 @@ var MyToolkit = (function() {
         var mouseoutEvent = null
         var mouseupEvent = null
         
-        // create button
+        // draw button
         var btnGroup = draw.group();
         var btn = draw.rect(86,35).fill("#BC4E76");
         var txt = draw.text("Button 1").fill('#F6F3F7').move(15,8);
@@ -54,9 +54,8 @@ var MyToolkit = (function() {
         })
 
         return {
-            /**
-             * Sets custom text label for button
-             * @param  {string} text
+            /** Sets custom text label for button
+             * @param  {string} textSets text label
              */
             setText: function(text){
                 txt.text(text);
@@ -64,22 +63,22 @@ var MyToolkit = (function() {
                 btn.size(txt.length() + 30,35)
             },
             /**
-             * Sets button's x and y coordinate on the page
-             * @param  {number} x
-             * @param  {number} y
+             * Sets button coordinate on the page
+             * @param  {number} x - x coordinate
+             * @param  {number} y - y coordinate
              */
             move: function(x, y) {
                 btnGroup.move(x, y);
             },
-            /** exposes onclick eventHandler 
-             * @param  {Object event} eventHandler
+            /** Exposes mouseclick eventHandler
+             * @param  {Object event} eventHandler - mouseclick event
              */
             onclick: function(eventHandler){
                 clickEvent = eventHandler
             }, 
             /**
              * Sets button color 
-             * @param  {string} color
+             * @param  {string} color - color - name or hex
              */
             setColor: function(color){
                 btn.fill(color);
@@ -93,22 +92,22 @@ var MyToolkit = (function() {
                 })
             },
             /**
-             *  exposes mouseoverevent eventHandler 
-             * @param  {Object event} eventHandler
+             *  exposes mouseoutevent eventHandler 
+             * @param  {Object event} eventHandler - mouseout event
              */
             onmouseout: function(eventHandler){
                 mouseoverEvent = eventHandler;
             },
             /**
              *  exposes onmouseup eventHandler 
-             * @param  {Object event} eventHandler
+             * @param  {Object event} eventHandler - mouseup event
              */
             onmouseup: function(eventHandler){
                 mouseoutEvent = eventHandler;
             },
             /**
              *  exposes onmouseover eventHandler 
-             * @param  {Object event} eventHandler
+             * @param  {Object event} eventHandler - mouseover event
              */
             onmouseover: function(eventHandler){
                 mouseupEvent = eventHandler;
@@ -131,7 +130,7 @@ var MyToolkit = (function() {
         // checkbox text
         var txt = draw.text('Checkbox item').move(35, 8);
 
-        // create checkbox
+        // draw checkbox
         var box = draw.rect(25,25).stroke({ color:"#BC4E76", width: 3, linecap: 'round', linejoin: 'round' }).fill("white").move(3,3);
         var line = draw.line(0, 0, 18, 18).move(6.5, 6.5).stroke({ color: '#A6C9C6', width: 2, linecap: 'round' })
         var line2 = draw.line(0, 18, 18, 0).move(6.5, 6.5).stroke({ color: '#A6C9C6', width: 2, linecap: 'round' })
@@ -192,8 +191,8 @@ var MyToolkit = (function() {
         })
         return{
             /** Sets checkbox's x and y coordinate on the page
-             * @param  {number} x
-             * @param  {number} y
+             * @param  {number} x - x coordinate
+             * @param  {number} y - y coordinate
              */
             move: function(x, y) {
                 checkbox.move(x, y);
@@ -201,25 +200,25 @@ var MyToolkit = (function() {
                 draw.width(draw.width() + checkbox.width()+100);
             },
             /** Exposes onclick eventHandler
-             * @param  {Object event} eventHandler
+             * @param  {Object event} eventHandler - mouseclick event 
              */
             onclick: function(eventHandler){
                 clickEvent = eventHandler
             },
             /** Sets custom text label for checkbox
-             * @param  {string} text
+             * @param  {string} text - text label
              */
             setText: function(text){
                 txt.text(text);
             },
             /** Exposes onmouseout eventHandler
-             * @param  {Object event} eventHandler
+             * @param  {Object event} eventHandler - mouseout event
              */
             onmouseout: function(eventHandler){
                 mouseoutEvent = eventHandler
             },
             /** Exposes onmouseover eventHandler
-             * @param  {Object event} eventHandler
+             * @param  {Object event} eventHandler - mouseover event
              */
             onmouseover: function(eventHandler){
                 mouseoverEvent = eventHandler
@@ -242,7 +241,7 @@ var MyToolkit = (function() {
         var button = draw.circle(19).fill('#8DB9B6').move(4, y+4);
         button.hide();
 
-        // create and group RadioButtons
+        // draw and group RadioButtons
         for (var i = 0; i < r.length; i++){
             y+=40
             var outerButton = draw.circle(27).fill('white').stroke({ color:"silver", width: 2, linecap: 'round', linejoin: 'round' }).move(0, y);
@@ -301,26 +300,26 @@ var MyToolkit = (function() {
         })
         return{
             /** Sets radiobutton(s)' x and y coordinate on the page
-             * @param  {number} x
-             * @param  {number} y
+             * @param  {number} x - x coordinate
+             * @param  {number} y - y coordinate
              */
             move: function(x, y) {
                 radioButtons.move(x, y);
             },
             /** Exposes onclick eventHandler
-             * @param  {Object event} eventHandler
+             * @param  {Object event} eventHandler - mouseclick event 
              */
             onclick: function(eventHandler){
                 clickEvent = eventHandler
             },
             /** Exposes onmouseout eventHandler
-             * @param  {Object event} eventHandler
+             * @param  {Object event} eventHandler - mouseout event 
              */
             onmouseout: function(eventHandler){
                 mouseoutEvent = eventHandler
             },
             /** Exposes onmouseover eventHandler
-             * @param  {Object event} eventHandler
+             * @param  {Object event} eventHandler - mouseover event 
              */
             onmouseover: function(eventHandler){
                 mouseoverEvent = eventHandler
@@ -335,7 +334,8 @@ var MyToolkit = (function() {
         var userInput = null
         var mouseoverEvent = null
         var mouseoutEvent = null
-
+        
+        // draw textbox
         var textbox = draw.group();
         var box = draw.rect(180, 25).stroke({ color:"silver", width: 1}).fill('white');
         var text = draw.text("").move(3,-1.5);
@@ -356,7 +356,6 @@ var MyToolkit = (function() {
         textbox.click(function(event){
             caret.show();
             box.stroke('#3D5A80');
-            // console.log(event);
             if(clickEvent != null)
                 clickEvent(event)
         });
@@ -375,14 +374,11 @@ var MyToolkit = (function() {
         
             SVG.on(window, 'keyup', (event) => {
                 var enterInput = "";
-                // console.log(event.keyCode);
                 box.stroke({ color:'#3D5A80', width: 1.5});
                 caret.show();
-                // console.log(event.key);
 
                 var eventKeyNum = [16, 17, 18, 20, 33, 34, 35, 36, 37, 44, 45, 91, 174, 175, 176, 177, 178]
                 if (event.keyCode == 8){
-                    // console.log(text.text());
                     text.text(text.text().substring(0, text.text().length-1));
                     caret.move(textbox.x() + text.length()+3);
                     if (text.length() < 180){
@@ -426,32 +422,32 @@ var MyToolkit = (function() {
                 move: function(x, y) {
                     textbox.move(x, y);
                 /**Exposes onclick eventHandler
-                 * @param  {Object event} eventHandler
+                 * @param  {Object event} eventHandler - mouseclick event
                  */
                 },
                 onclick: function(eventHandler){
                     clickEvent = eventHandler
                 },
                 /** Logs to console the userInput after pressing Enter key
-                 * @param  {Object event} eventHandler
+                 * @param  {Object event} eventHandler - keydown event 
                  */
                 getInput: function(eventHandler){
                     userInput = eventHandler;
                 },
                 /** Exposes keypress eventHandler
-                 * @param  {Object event} eventHandler
+                 * @param  {Object event} eventHandler - keydown event 
                  */
                 keypressed: function(eventHandler){
                     keyEvent = eventHandler
                 },
                 /**Exposes onmouseout eventHandler
-                 * @param  {Object event} eventHandler
+                 * @param  {Object event} eventHandler - mouseout event 
                  */
                 onmouseout: function(eventHandler){
                     mouseoutEvent = eventHandler
                 },
                 /**Exposes onmouseover eventHandler
-                 * @param  {Object event} eventHandler
+                 * @param  {Object event} eventHandler - mouseover event
                  */
                 onmouseover: function(eventHandler){
                     mouseoverEvent = eventHandler
@@ -467,17 +463,23 @@ var MyToolkit = (function() {
         var mouseoutEvent = null
         var thumbPosition = null
 
+        //draw and customize scrollbar
         var scrollbar = draw.group();
         var scroll = draw.rect(16, 180).stroke({ color:"#3D5A80", width: 1}).fill('white').move(1,2);
         var upBtn = draw.rect(18, 19).fill('silver').move(0,-19);
         var thumb = draw.rect(12, 35).fill('#A6C9C6').move(upBtn.x() + 3, upBtn.y() + 22);
+
+        
         thumb.radius(3);
         scroll.radius(3);
+
         var downBtn = draw.rect(18, 19).fill('silver').move(0,183);
         var upArrow =  draw.text("⯅").move(1.5,-17);
         var downArrow = draw.text("⯆").move(1.5,183);
+
         downBtn.radius(6);
         upBtn.radius(6);
+
         var down = draw.group();
         var up = draw.group();
 
@@ -553,7 +555,6 @@ var MyToolkit = (function() {
             }
         });
         up.click(function(event){
-            // console.log(upBtn.width());
             if(thumb.y()-40 > up.y()){
                 thumb.move(thumb.x(),thumb.y()-clickinterval)
             }
@@ -561,11 +562,7 @@ var MyToolkit = (function() {
                 clickEvent("Pressed State");
         });
         scroll.click(function(event){
-            // console.log(event);
             thumb.dy(event.offsetY-thumb.y()-scroll.height()+160);
-            // console.log(event);
-            // thumbPosition = event.y();
-            // console.log(event.clientY-thumb.y()-scroll.height());
             if(clickEvent != null)
                 clickEvent(`Pressed State - Thumb position (y): ${event.pageY}`);
         });
@@ -579,7 +576,6 @@ var MyToolkit = (function() {
         //         thumb.dy(event.offsetY-thumb.y()-scroll.height()+150);
         //         console.log(event.clientY-thumb.y()-scroll.height());
         //     });
-            
         //     SVG.on(scroll,'mousemove',(event)=>{
         //         console.log(thumb.point(event.pageX, event.pageY));
         //         if (event.clientY >thumb.y()){
@@ -595,8 +591,8 @@ var MyToolkit = (function() {
         // actions do you need to take with the mouse to get it to move and in what sequence do they happen in
         // direction - make sure to consider up, down, and no movement
         // SVG.on(window, 'keyup', (event) => {
-
         // });
+
         return {
             setHeight: function(x){
                 scroll.height(x);
@@ -617,15 +613,27 @@ var MyToolkit = (function() {
             move: function(x, y) {
                 scrollbar.move(x, y);
             },
+            /** Exposes onclick eventHandler
+             * @param  {Object event} eventHandler - mouseclick event
+             */
             onclick: function(eventHandler){
                 clickEvent = (eventHandler)
             },
+            /** Exposes onmouseout eventHandler
+             * @param  {Object event} eventHandler - mouseout event
+             */
             onmouseout: function(eventHandler){
                 mouseoutEvent = eventHandler
             },
+            /** Exposes onmouseover eventHandler
+             * @param  {Object event} eventHandler - mouseover event
+             */
             onmouseover: function(eventHandler){
                 mouseoverEvent = eventHandler
             },
+            /** Gets y-coordinate of thumb on page
+             * @param  {Object event} eventHandler - mouseclick event
+             */
             getThumbPosition: function (eventHandler){
                 thumbPosition = eventHandler;
             }
@@ -633,8 +641,10 @@ var MyToolkit = (function() {
     }
 
     var Progressbar = function(inc, interval){
+        // var draw = SVG().addTo('body').size('100%','100%');
         var increment = 0;
-        var draw = SVG().addTo('body').size('100%','100%');
+        
+        //draw progress bar
         var progressbar = draw.group();
         var bar = draw.rect(250, 12).stroke({ color:"#3D5A80", width: 1.5}).fill('white');
         var progress = draw.rect(0, 9).fill("#BC4E76").move(1,2);
@@ -648,18 +658,18 @@ var MyToolkit = (function() {
 
         return{
             /** Sets progressbar x and y coordinate on the page
-                 * @param  {number} x
-                 * @param  {number} y
+                 * @param  {number} x - x coordinate
+                 * @param  {number} y - y coordinate
             */
             move: function(x,y){
                 progress.move(x,y)
                 bar.move(x,y)
             },
             /** Sets progressbar width
-             * @param  {number} width
+             * @param  {number} width - number >= 0
              */
             setWidth: function(width){
-                progress.width(width)
+                progress.width(width) 
             },
             /**
              * Logs to console progressbar width
@@ -675,7 +685,7 @@ var MyToolkit = (function() {
             },
             /**
              * Sets progressbar increment value
-             * @param  {number} inc
+             * @param  {number} inc - number >= 0
              */
             setIncrement: function(inc){
                 increment += inc;
@@ -693,7 +703,9 @@ var MyToolkit = (function() {
     }
 
     var Toggle = function(){
-        var draw = SVG().addTo('body').size('100%','100%');
+        // var draw = SVG().addTo('body').size('100%','100%');
+
+        //draw toggle button
         var toggleButton = draw.group();
         var container = draw.rect(54,30).stroke({color:"#91AACA", width: 2}).fill('white');
         var x = container.x() + 3;
@@ -721,7 +733,6 @@ var MyToolkit = (function() {
             toggle.fill("white");
         });
         toggleButton.click(function(event){
-            // console.log(toggle.x());
             if (toggle.x() == container.x()+3){
                 checked = true;
                 container.fill("#91AACA")
@@ -760,26 +771,26 @@ var MyToolkit = (function() {
         })
         return{
             /** Sets progressbar x and y coordinate on the page
-                 * @param  {number} x
-                 * @param  {number} y
+                 * @param  {number} x - x coordinate
+                 * @param  {number} y - y coordinate
             */
             move: function(x,y){
                 toggleButton.move(x,y);
             },
             /** Exposes onclick eventHandler 
-             * @param  {Object event} eventHandler
+             * @param  {Object event} eventHandler - mouseclick event
              */
             onclick: function(eventHandler){
                 clickEvent = eventHandler
             },
             /** Exposes onmouseout eventHandler 
-             * @param  {Object event} eventHandler
+             * @param  {Object event} eventHandler - mouseout event 
              */
             onmouseout: function(eventHandler){
                 mouseoutEvent = eventHandler
             },
             /** Exposes onmouseover eventHandler 
-             * @param  {Object event} eventHandler
+             * @param  {Object event} eventHandler - mouseover event
              */
             onmouseover: function(eventHandler){
                 mouseoverEvent = eventHandler
