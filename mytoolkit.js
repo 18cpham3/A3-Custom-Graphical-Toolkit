@@ -107,7 +107,7 @@ var MyToolkit = (function() {
             },
             /**
              *  exposes onmouseover eventHandler 
-             * @param  {Object event} eventHandler - mouseover event
+             * @param  {Object} eventHandler - mouseover event
              */
             onmouseover: function(eventHandler){
                 mouseupEvent = eventHandler;
