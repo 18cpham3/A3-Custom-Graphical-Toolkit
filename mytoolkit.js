@@ -194,7 +194,6 @@ var MyToolkit = (function() {
         var clickEvent = null
         var mouseoverEvent = null
         var mouseoutEvent = null
-        var mouseupEvent = null
 
         var radioButtons = draw.group()
         var y = 0;
@@ -232,25 +231,44 @@ var MyToolkit = (function() {
         // callbacks
         buttons.map(e => e.node.addEventListener("click", function(){ 
             button.move(e.x()+4, e.y()+4);
-           
+            if(clickEvent != null && button.y() == e.y()+4)
+                clickEvent("Checked - Hover State");
         }));
         buttons.map(e => e.node.addEventListener("mouseover", function(){ 
             e.stroke("#67A29C");
+            if(mouseoverEvent != null && button.y() != e.y()+4)
+                mouseoverEvent("Unchecked - Hover State");
+            else
+                mouseoverEvent("Checked - Hover State");
             
         }));
         buttons.map(e => e.node.addEventListener("mouseout", function(){ 
             e.stroke("silver");
             e.fill("white");
+            if(mouseoutEvent != null && button.y() != e.y()+4)
+                mouseoutEvent("Unchecked - Idle State");
+            else
+                mouseoutEvent("Checked - Idle State");
         }));
         button.mouseover(function(event){
             button.fill("white").stroke({color:'#B3D0CE', width:2});
         })
         button.mouseout(function(event){
             button.fill("#8DB9B6").stroke({color:'#8DB9B6', width:0});
+            
         })
         return{
             move: function(x, y) {
                 radioButtons.move(x, y);
+            },
+            onclick: function(eventHandler){
+                clickEvent = eventHandler
+            },
+            onmouseout: function(eventHandler){
+                mouseoutEvent = eventHandler
+            },
+            onmouseover: function(eventHandler){
+                mouseoverEvent = eventHandler
             }
         }
     }
@@ -422,10 +440,6 @@ var MyToolkit = (function() {
         })
         var clickinterval = 35;
         down.click(function(event){
-            // console.log(thumb.y());
-            // console.log(scroll.height());
-            // if (thumb.y() < scroll.height()){
-            // thumb.move(thumb.x(), thumb.y()+clickinterval);
             if(thumb.y() < down.y()-50){
                 thumb.move(thumb.x(),thumb.y()+clickinterval)
             }
@@ -436,9 +450,6 @@ var MyToolkit = (function() {
                 thumb.move(thumb.x(),thumb.y()-clickinterval)
             
             }
-            // else if (thumb.y() - clickinterval < upBtn.y()){
-            //     thumb.move(thumb.x(), 0);
-            // }
         });
         scroll.click(function(event){
             // console.log(event);
@@ -469,7 +480,7 @@ var MyToolkit = (function() {
         // Make sure you are capturing events from your inner and outer rectangles (if that's how you have built your thumbbar)
         // Capture your mouse position from ClientY rather than PageY
         // actions do you need to take with the mouse to get it to move and in what sequence do they happen in
-        //direction - make sure to consider up, down, and no movement
+        // direction - make sure to consider up, down, and no movement
         // SVG.on(window, 'keyup', (event) => {
 
         // });

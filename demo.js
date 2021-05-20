@@ -49,6 +49,16 @@ rb1.move(50,300);
 // 	console.log(e);
 // });
 
+rb1.onclick(function(e){
+	console.log(`RadioButton: ${e}`);
+});
+rb1.onmouseover(function(e){
+	console.log(`RadioButton: ${e}`);
+});
+rb1.onmouseout(function(e){
+	console.log(`RadioButton: ${e}`);
+});
+
 // Mytoolkit textbox
 var tb = new MyToolkit.Textbox;
 tb.move(300, 100)
@@ -63,5 +73,7 @@ pb1.move(300, 160);
 //Mytoolkit Scrollbar
 var scroll = new MyToolkit.Scrollbar;
 scroll.move(480,200);
+
+// Mytoolkit togglebutton
 var toggle = new MyToolkit.Toggle;
 toggle.move(300,300);
