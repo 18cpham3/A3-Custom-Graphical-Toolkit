@@ -176,9 +176,6 @@ var MyToolkit = (function() {
             setText: function(text){
                 txt.text(text);
             },
-            onclick: function(eventHandler){
-                clickEvent = eventHandler
-            },
             onmouseout: function(eventHandler){
                 mouseoutEvent = eventHandler
             },
@@ -278,6 +275,8 @@ var MyToolkit = (function() {
         var clickEvent = null
         var keyEvent = null
         var userInput = null
+        var mouseoverEvent = null
+        var mouseoutEvent = null
 
         var textbox = draw.group();
         var box = draw.rect(180, 25).stroke({ color:"silver", width: 1}).fill('white');
@@ -307,10 +306,14 @@ var MyToolkit = (function() {
         textbox.mouseover(function(event){
             caret.show();
             box.stroke('#3D5A80');
+            if(mouseoverEvent != null)
+                mouseoverEvent("Hover State");
         });
         textbox.mouseout(function(event){
             caret.hide();
             box.stroke('silver');
+            if(mouseoutEvent != null)
+                mouseoutEvent("Idle State");
         });
         
             SVG.on(window, 'keyup', (event) => {
@@ -333,7 +336,10 @@ var MyToolkit = (function() {
                     console.log("Special eventkey " + event.keyCode);
                 }
                 else if(event.keyCode == 13 || event.keyCode == 46 ){
-                    enterInput = text.text();
+                    enterInput = text.text()
+                    if (userInput != null)
+                        userInput(enterInput);
+                    
                     text.text("");
                     caret.move(textbox.x(),textbox.y());
                     box.size(180, 25);
@@ -346,8 +352,8 @@ var MyToolkit = (function() {
                 }
                 else{
                     text.text(text.text() + event.key);
-                    if (keypressed != null){
-                        keypressed(text.text(text.text() + event.key));
+                    if (keyEvent != null){
+                        keyEvent(event.key);
                     }
                     caret.move(textbox.x() + text.length()+3);
                     if (text.length() > 180){
@@ -362,11 +368,17 @@ var MyToolkit = (function() {
                 onclick: function(eventHandler){
                     clickEvent = eventHandler
                 },
-                getInput: function(){
-                    console.log(enterInput);
+                getInput: function(eventHandler){
+                    userInput = eventHandler;
                 },
                 keypressed: function(eventHandler){
                     keyEvent = eventHandler
+                },
+                onmouseout: function(eventHandler){
+                    mouseoutEvent = eventHandler
+                },
+                onmouseover: function(eventHandler){
+                    mouseoverEvent = eventHandler
                 }
             }
     }
@@ -377,7 +389,6 @@ var MyToolkit = (function() {
         var clickEvent = null
         var mouseoverEvent = null
         var mouseoutEvent = null
-        var mouseupEvent = null
 
         var scrollbar = draw.group();
         var scroll = draw.rect(16, 180).stroke({ color:"#3D5A80", width: 1}).fill('white').move(1,2);
@@ -410,33 +421,53 @@ var MyToolkit = (function() {
         // callbacks
         down.mouseover(function(event){
             downBtn.fill('#9FB4D1');
+            if(mouseoverEvent != null)
+                mouseoverEvent("Hover State");
         })
         down.mouseout(function(event){
             downBtn.fill('silver');
+            if(mouseoutEvent != null)
+                mouseoutEvent("Idle State");
         })
         down.click(function(event){
             downBtn.fill('#3D5A80');
+            if(clickEvent != null)
+                clickEvent("Pressed State");
         })
         up.mouseover(function(event){
             upBtn.fill('#9FB4D1');
+            if(mouseoverEvent != null)
+                mouseoverEvent("Hover State");
         })
         up.click(function(event){
             upBtn.fill('#3D5A80');
+            if(clickEvent != null)
+                clickEvent("Pressed State");
         })
         up.mouseout(function(event){
             upBtn.fill('silver');
+            if(mouseoutEvent != null)
+                mouseoutEvent("Idle State");
         })
         scroll.mouseover(function(event){
             scroll.fill('#E6EFEF');
+            if(mouseoverEvent != null)
+                mouseoverEvent("Hover State");
         })
         scroll.mouseout(function(event){
             scroll.fill('white');
+            if(mouseoutEvent != null)
+                mouseoutEvent("Idle State");
         })
         thumb.mouseover(function(event){
             thumb.fill('#6AA0A0');
+            if(mouseoverEvent != null)
+                mouseoverEvent("Hover State");
         })
         thumb.mouseout(function(event){
             thumb.fill('#A6C9C6');
+            if(mouseoutEvent != null)
+                mouseoutEvent("Idle State");
         })
         var clickinterval = 35;
         down.click(function(event){
@@ -448,16 +479,19 @@ var MyToolkit = (function() {
             // console.log(upBtn.width());
             if(thumb.y()-40 > up.y()){
                 thumb.move(thumb.x(),thumb.y()-clickinterval)
-            
             }
+            if(clickEvent != null)
+                clickEvent("Pressed State");
         });
         scroll.click(function(event){
             // console.log(event);
             thumb.dy(event.offsetY-thumb.y()-scroll.height()+150);
             // console.log(event.clientY-thumb.y()-scroll.height());
+            if(clickEvent != null)
+                clickEvent("Pressed State");
         });
 
-        // thumb drag (doesn't work :( ))
+        // thumb drag (doesn't work :[ ))
         // console.log(scrollbar);
         // thumb.mouseup(function()){}
         // thumb.mousedown(function(){
@@ -490,6 +524,12 @@ var MyToolkit = (function() {
             },
             onclick: function(eventHandler){
                 clickEvent = eventHandler
+            },
+            onmouseout: function(eventHandler){
+                mouseoutEvent = eventHandler
+            },
+            onmouseover: function(eventHandler){
+                mouseoverEvent = eventHandler
             }
         }
     }
@@ -532,6 +572,7 @@ var MyToolkit = (function() {
                     // times: 5,
                     wait: 200
                   }).width(increment).loop()
+                console.log(`Increment set to ${inc}`)
             },
         }
     }
@@ -543,7 +584,12 @@ var MyToolkit = (function() {
         var x = container.x() + 3;
         var toggle = draw.circle(25,25).stroke({color:"#91AACA", width: 2}).fill('white').move(x,2.5);
         container.radius(15);
-        
+
+        var clickEvent = null
+        var mouseoverEvent = null
+        var mouseoutEvent = null
+        var checked = false;
+
         // toggle group
         toggleButton.add(container);
         toggleButton.add(toggle);
@@ -562,31 +608,53 @@ var MyToolkit = (function() {
         toggleButton.click(function(event){
             // console.log(toggle.x());
             if (toggle.x() == container.x()+3){
+                checked = true;
                 container.fill("#91AACA")
                 toggle.fill("#91AACA").stroke("#3C587C");
+                var pretoggle = toggle.x();
                 toggle.x(toggle.x()+23);
                 toggle.mouseover(function(event){
                     toggle.fill("#5075A5").stroke('#5075A5');
+                    
+                    if(mouseoverEvent != null && checked == true)
+                    mouseoverEvent("Checked - Hover State");    
                 });
                 toggle.mouseout(function(event){
                     toggle.fill("#3C587C").stroke('#3C587C');
+                    if(mouseoutEvent != null && checked == true)
+                    mouseoutEvent("Checked - Idle State");   
                 });
             }
             else{
+                checked = false;
                 container.fill("white").stroke("#91AACA");
                 toggle.fill('white').stroke("#91AACA");
                 toggle.x(toggle.x()-23);
                 toggle.mouseover(function(event){
                     toggle.fill("#91AACA").stroke("#91AACA");
+                    
+                    if(mouseoverEvent != null && checked == false)
+                    mouseoverEvent("Unchecked - Hover State");   
                 });
                 toggle.mouseout(function(event){
                     toggle.fill("white").stroke("#91AACA");
+                    if(mouseoutEvent != null && checked == false)
+                    mouseoutEvent("Unchecked - Idle State");   
                 });
             }
         })
         return{
             move: function(x,y){
                 toggleButton.move(x,y);
+            },
+            onclick: function(eventHandler){
+                clickEvent = eventHandler
+            },
+            onmouseout: function(eventHandler){
+                mouseoutEvent = eventHandler
+            },
+            onmouseover: function(eventHandler){
+                mouseoverEvent = eventHandler
             }
         }
     }
