@@ -70,7 +70,7 @@ var MyToolkit = (function() {
             move: function(x, y) {
                 btnGroup.move(x, y);
             },
-            /** Exposes mouseclick eventHandler
+            /** Button - Exposes mouseclick eventHandler
              * @param  {Object} eventHandler - mouseclick event
              */
             onclick: function(eventHandler){
@@ -92,21 +92,21 @@ var MyToolkit = (function() {
                 })
             },
             /**
-             *  exposes mouseoutevent eventHandler 
+             *  Button - Exposes mouseoutevent eventHandler 
              * @param  {Object} eventHandler - mouseout event
              */
             onmouseout: function(eventHandler){
                 mouseoverEvent = eventHandler;
             },
             /**
-             *  exposes onmouseup eventHandler 
+             *  Button - Exposes onmouseup eventHandler 
              * @param  {Object} eventHandler - mouseup event
              */
             onmouseup: function(eventHandler){
                 mouseoutEvent = eventHandler;
             },
             /**
-             *  exposes onmouseover eventHandler 
+             *  Button - Exposes onmouseover eventHandler 
              * @param  {Object} eventHandler - mouseover event
              */
             onmouseover: function(eventHandler){
@@ -199,7 +199,7 @@ var MyToolkit = (function() {
                 draw.height(draw.height() + checkbox.height());
                 draw.width(draw.width() + checkbox.width()+100);
             },
-            /** Exposes onclick eventHandler
+            /** Check box - Exposes onclick eventHandler
              * @param  {Object} eventHandler - mouseclick event 
              */
             onclick: function(eventHandler){
@@ -211,13 +211,13 @@ var MyToolkit = (function() {
             setText: function(text){
                 txt.text(text);
             },
-            /** Exposes onmouseout eventHandler
+            /** Check box - Exposes onmouseout eventHandler
              * @param  {Object} eventHandler - mouseout event
              */
             onmouseout: function(eventHandler){
                 mouseoutEvent = eventHandler
             },
-            /** Exposes onmouseover eventHandler
+            /** Check box - Exposes onmouseover eventHandler
              * @param  {Object} eventHandler - mouseover event
              */
             onmouseover: function(eventHandler){
@@ -306,19 +306,19 @@ var MyToolkit = (function() {
             move: function(x, y) {
                 radioButtons.move(x, y);
             },
-            /** Exposes onclick eventHandler
+            /** Check box - Exposes onclick eventHandler
              * @param  {Object} eventHandler - mouseclick event 
              */
             onclick: function(eventHandler){
                 clickEvent = eventHandler
             },
-            /** Exposes onmouseout eventHandler
+            /** Check box - Exposes onmouseout eventHandler
              * @param  {Object} eventHandler - mouseout event 
              */
             onmouseout: function(eventHandler){
                 mouseoutEvent = eventHandler
             },
-            /** Exposes onmouseover eventHandler
+            /** Check box - Exposes onmouseover eventHandler
              * @param  {Object} eventHandler - mouseover event 
              */
             onmouseover: function(eventHandler){
@@ -421,7 +421,7 @@ var MyToolkit = (function() {
                  */
                 move: function(x, y) {
                     textbox.move(x, y);
-                /**Exposes onclick eventHandler
+                /** Textbox - Exposes onclick eventHandler
                  * @param  {Object} eventHandler - mouseclick event
                  */
                 },
@@ -434,19 +434,19 @@ var MyToolkit = (function() {
                 getInput: function(eventHandler){
                     userInput = eventHandler;
                 },
-                /** Exposes keypress eventHandler
+                /** Textbox - Exposes keypress eventHandler
                  * @param  {Object} eventHandler - keydown event 
                  */
                 keypressed: function(eventHandler){
                     keyEvent = eventHandler
                 },
-                /**Exposes onmouseout eventHandler
+                /** Textbox -Exposes onmouseout eventHandler
                  * @param  {Object} eventHandler - mouseout event 
                  */
                 onmouseout: function(eventHandler){
                     mouseoutEvent = eventHandler
                 },
-                /**Exposes onmouseover eventHandler
+                /** Textbox -Exposes onmouseover eventHandler
                  * @param  {Object} eventHandler - mouseover event
                  */
                 onmouseover: function(eventHandler){
@@ -613,19 +613,19 @@ var MyToolkit = (function() {
             move: function(x, y) {
                 scrollbar.move(x, y);
             },
-            /** Exposes onclick eventHandler
+            /** Scrollbar - Exposes onclick eventHandler
              * @param  {Object} eventHandler - mouseclick event
              */
             onclick: function(eventHandler){
                 clickEvent = (eventHandler)
             },
-            /** Exposes onmouseout eventHandler
+            /** Scrollbar - Exposes onmouseout eventHandler
              * @param  {Object} eventHandler - mouseout event
              */
             onmouseout: function(eventHandler){
                 mouseoutEvent = eventHandler
             },
-            /** Exposes onmouseover eventHandler
+            /** Scrollbar - Exposes onmouseover eventHandler
              * @param  {Object} eventHandler - mouseover event
              */
             onmouseover: function(eventHandler){
@@ -777,19 +777,19 @@ var MyToolkit = (function() {
             move: function(x,y){
                 toggleButton.move(x,y);
             },
-            /** Exposes onclick eventHandler 
+            /** Toggle Button - Exposes onclick eventHandler 
              * @param  {Object} eventHandler - mouseclick event
              */
             onclick: function(eventHandler){
                 clickEvent = eventHandler
             },
-            /** Exposes onmouseout eventHandler 
+            /** Toggle Button - Exposes onmouseout eventHandler 
              * @param  {Object} eventHandler - mouseout event 
              */
             onmouseout: function(eventHandler){
                 mouseoutEvent = eventHandler
             },
-            /** Exposes onmouseover eventHandler 
+            /** Toggle Button - Exposes onmouseover eventHandler 
              * @param  {Object} eventHandler - mouseover event
              */
             onmouseover: function(eventHandler){
