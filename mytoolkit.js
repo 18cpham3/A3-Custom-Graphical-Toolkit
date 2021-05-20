@@ -1,5 +1,5 @@
 import {SVG} from './svg.min.js';
-var draw = SVG().addTo('body').size('100%','100%').height(1000);
+var draw = SVG().addTo('body').size('100%','100%').height(1500);
 var page = draw.group();
 page.rect(10000,10000).fill('white');
 var MyToolkit = (function() {
@@ -191,6 +191,7 @@ var MyToolkit = (function() {
         var clickEvent = null
         var mouseoverEvent = null
         var mouseoutEvent = null
+        var buttonNum = 1
 
         var radioButtons = draw.group()
         var y = 0;
@@ -228,8 +229,10 @@ var MyToolkit = (function() {
         // callbacks
         buttons.map(e => e.node.addEventListener("click", function(){ 
             button.move(e.x()+4, e.y()+4);
+            buttonNum += 1
             if(clickEvent != null && button.y() == e.y()+4)
                 clickEvent("Checked - Hover State");
+                console.log(`RadioButton #${buttons.indexOf(e)+1} clicked.`)
         }));
         buttons.map(e => e.node.addEventListener("mouseover", function(){ 
             e.stroke("#67A29C");
@@ -389,6 +392,7 @@ var MyToolkit = (function() {
         var clickEvent = null
         var mouseoverEvent = null
         var mouseoutEvent = null
+        var thumbPosition = null
 
         var scrollbar = draw.group();
         var scroll = draw.rect(16, 180).stroke({ color:"#3D5A80", width: 1}).fill('white').move(1,2);
@@ -485,10 +489,12 @@ var MyToolkit = (function() {
         });
         scroll.click(function(event){
             // console.log(event);
-            thumb.dy(event.offsetY-thumb.y()-scroll.height()+150);
+            thumb.dy(event.offsetY-thumb.y()-scroll.height()+160);
+            console.log(event);
+            // thumbPosition = event.y();
             // console.log(event.clientY-thumb.y()-scroll.height());
             if(clickEvent != null)
-                clickEvent("Pressed State");
+                clickEvent(`Pressed State - Thumb position (y): ${event.pageY}`);
         });
 
         // thumb drag (doesn't work :[ ))
@@ -519,17 +525,32 @@ var MyToolkit = (function() {
 
         // });
         return {
+            setHeight: function(x){
+                scroll.height(x);
+                thumb.height(x/4);
+                down.y(up.y()+x+22);
+                scroll.click(function(event){
+                    // console.log(event);
+                    thumb.dy(event.offsetY-thumb.y()-scroll.height()+x);
+                    // console.log(event.clientY-thumb.y()-scroll.height());
+  
+                });
+                
+            },
             move: function(x, y) {
                 scrollbar.move(x, y);
             },
             onclick: function(eventHandler){
-                clickEvent = eventHandler
+                clickEvent = (eventHandler)
             },
             onmouseout: function(eventHandler){
                 mouseoutEvent = eventHandler
             },
             onmouseover: function(eventHandler){
                 mouseoverEvent = eventHandler
+            },
+            getThumbPosition: function (eventHandler){
+                thumbPosition = eventHandler;
             }
         }
     }

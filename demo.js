@@ -80,6 +80,7 @@ var pb1 = new MyToolkit.Progressbar;
 pb1.setIncrement(23);
 pb1.getIncrement();
 pb1.move(300, 160);
+pb1.setWidth(10);
 // pb1.onclick(function(e){
 // 	console.log(`RadioButton: ${e}`);
 // });
@@ -93,6 +94,8 @@ pb1.move(300, 160);
 //Mytoolkit Scrollbar
 var scroll = new MyToolkit.Scrollbar;
 scroll.move(480,200);
+scroll.getThumbPosition();
+// scroll.setHeight(500);
 scroll.onclick(function(e){
 	console.log(`Sb: ${e}`);
 });
