@@ -36,12 +36,13 @@ cb.move(50, 210);
 cb.setText("Checkbox 1")
 
 // Mytoolkit radiobutton
+
 /**
  * The Radiobutton object accepts a list containing 
  * a string for custom labeling
  * and a boolean denoting whether a button is checked.
  * If the user passes in more than one checked state, 
- * the last button passed in as checked will remain in checked state 
+ * the last button passed in as checked will remain in checked state, 
  * while the rest will be unchecked.
  */
 var r = []
@@ -53,9 +54,6 @@ r.push(["Radiobutton 5", false])
 
 let rb1 = new MyToolkit.Radiobuttons(r);
 rb1.move(50,300);
-// r.onclick(function(e){
-// 	console.log(e);
-// });
 
 rb1.onclick(function(e){
 	console.log(`RadioButton: ${e}`);
@@ -85,7 +83,7 @@ tb.getInput(function(e){
 
 // Mytoolkit Progressbar
 /**
- * Default increment is set at 0.
+ * Default increment is set to 0.
  */
 var pb1 = new MyToolkit.Progressbar;
 pb1.setIncrement(23);

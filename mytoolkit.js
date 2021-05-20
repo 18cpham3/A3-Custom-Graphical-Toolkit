@@ -64,7 +64,7 @@ var MyToolkit = (function() {
                 btn.size(txt.length() + 30,35)
             },
             /**
-             * Sets button x and y coordinate on page
+             * Sets button's x and y coordinate on the page
              * @param  {number} x
              * @param  {number} y
              */
@@ -191,20 +191,36 @@ var MyToolkit = (function() {
 
         })
         return{
+            /** Sets checkbox's x and y coordinate on the page
+             * @param  {number} x
+             * @param  {number} y
+             */
             move: function(x, y) {
                 checkbox.move(x, y);
                 draw.height(draw.height() + checkbox.height());
                 draw.width(draw.width() + checkbox.width()+100);
             },
+            /** Exposes onclick eventHandler
+             * @param  {Object event} eventHandler
+             */
             onclick: function(eventHandler){
                 clickEvent = eventHandler
             },
+            /** Sets custom text label for checkbox
+             * @param  {string} text
+             */
             setText: function(text){
                 txt.text(text);
             },
+            /** Exposes onmouseout eventHandler
+             * @param  {Object event} eventHandler
+             */
             onmouseout: function(eventHandler){
                 mouseoutEvent = eventHandler
             },
+            /** Exposes onmouseover eventHandler
+             * @param  {Object event} eventHandler
+             */
             onmouseover: function(eventHandler){
                 mouseoverEvent = eventHandler
             }
@@ -284,15 +300,28 @@ var MyToolkit = (function() {
             
         })
         return{
+            /** Sets radiobutton(s)' x and y coordinate on the page
+             * @param  {number} x
+             * @param  {number} y
+             */
             move: function(x, y) {
                 radioButtons.move(x, y);
             },
+            /** Exposes onclick eventHandler
+             * @param  {Object event} eventHandler
+             */
             onclick: function(eventHandler){
                 clickEvent = eventHandler
             },
+            /** Exposes onmouseout eventHandler
+             * @param  {Object event} eventHandler
+             */
             onmouseout: function(eventHandler){
                 mouseoutEvent = eventHandler
             },
+            /** Exposes onmouseover eventHandler
+             * @param  {Object event} eventHandler
+             */
             onmouseover: function(eventHandler){
                 mouseoverEvent = eventHandler
             }
@@ -330,7 +359,6 @@ var MyToolkit = (function() {
             // console.log(event);
             if(clickEvent != null)
                 clickEvent(event)
-            
         });
         textbox.mouseover(function(event){
             caret.show();
@@ -391,21 +419,40 @@ var MyToolkit = (function() {
                 }
             })
             return{
+                /** Sets textbox x and y coordinate on the page
+                 * @param  {number} x
+                 * @param  {number} y
+                 */
                 move: function(x, y) {
                     textbox.move(x, y);
+                /**Exposes onclick eventHandler
+                 * @param  {Object event} eventHandler
+                 */
                 },
                 onclick: function(eventHandler){
                     clickEvent = eventHandler
                 },
+                /** Logs to console the userInput after pressing Enter key
+                 * @param  {Object event} eventHandler
+                 */
                 getInput: function(eventHandler){
                     userInput = eventHandler;
                 },
+                /** Exposes keypress eventHandler
+                 * @param  {Object event} eventHandler
+                 */
                 keypressed: function(eventHandler){
                     keyEvent = eventHandler
                 },
+                /**Exposes onmouseout eventHandler
+                 * @param  {Object event} eventHandler
+                 */
                 onmouseout: function(eventHandler){
                     mouseoutEvent = eventHandler
                 },
+                /**Exposes onmouseover eventHandler
+                 * @param  {Object event} eventHandler
+                 */
                 onmouseover: function(eventHandler){
                     mouseoverEvent = eventHandler
                 }
@@ -563,6 +610,10 @@ var MyToolkit = (function() {
                 });
                 
             },
+            /** Sets scrollbar x and y coordinate on the page
+                 * @param  {number} x
+                 * @param  {number} y
+            */
             move: function(x, y) {
                 scrollbar.move(x, y);
             },
@@ -596,19 +647,36 @@ var MyToolkit = (function() {
         progressbar.move(1,1);
 
         return{
+            /** Sets progressbar x and y coordinate on the page
+                 * @param  {number} x
+                 * @param  {number} y
+            */
             move: function(x,y){
                 progress.move(x,y)
                 bar.move(x,y)
             },
+            /** Sets progressbar width
+             * @param  {number} width
+             */
             setWidth: function(width){
                 progress.width(width)
             },
-            getWidth: function(width){
+            /**
+             * Logs to console progressbar width
+             */
+            getWidth: function(){
                 bar.width()
             },
+            /**
+             * Logs to console progressbar increment value
+             */
             getIncrement: function(){
                 console.log(increment)
             },
+            /**
+             * Sets progressbar increment value
+             * @param  {number} inc
+             */
             setIncrement: function(inc){
                 increment += inc;
                 progress.size(0,10)
@@ -691,15 +759,28 @@ var MyToolkit = (function() {
             }
         })
         return{
+            /** Sets progressbar x and y coordinate on the page
+                 * @param  {number} x
+                 * @param  {number} y
+            */
             move: function(x,y){
                 toggleButton.move(x,y);
             },
+            /** Exposes onclick eventHandler 
+             * @param  {Object event} eventHandler
+             */
             onclick: function(eventHandler){
                 clickEvent = eventHandler
             },
+            /** Exposes onmouseout eventHandler 
+             * @param  {Object event} eventHandler
+             */
             onmouseout: function(eventHandler){
                 mouseoutEvent = eventHandler
             },
+            /** Exposes onmouseover eventHandler 
+             * @param  {Object event} eventHandler
+             */
             onmouseover: function(eventHandler){
                 mouseoverEvent = eventHandler
             }
