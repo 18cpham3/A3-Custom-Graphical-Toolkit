@@ -1,4 +1,32 @@
-import {SVG} from './svg.min.js';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: mytoolkit.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: mytoolkit.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {SVG} from './svg.min.js';
 var draw = SVG().addTo('body').size('100%','100%').height(1500);
 var page = draw.group();
 page.rect(10000,10000).fill('white');
@@ -71,7 +99,7 @@ var MyToolkit = (function() {
                 btnGroup.move(x, y);
             },
             /** Exposes mouseclick eventHandler
-             * @param  {Object} eventHandler - mouseclick event
+             * @param  {Object event} eventHandler - mouseclick event
              */
             onclick: function(eventHandler){
                 clickEvent = eventHandler
@@ -93,14 +121,14 @@ var MyToolkit = (function() {
             },
             /**
              *  exposes mouseoutevent eventHandler 
-             * @param  {Object} eventHandler - mouseout event
+             * @param  {Object event} eventHandler - mouseout event
              */
             onmouseout: function(eventHandler){
                 mouseoverEvent = eventHandler;
             },
             /**
              *  exposes onmouseup eventHandler 
-             * @param  {Object} eventHandler - mouseup event
+             * @param  {Object event} eventHandler - mouseup event
              */
             onmouseup: function(eventHandler){
                 mouseoutEvent = eventHandler;
@@ -154,9 +182,9 @@ var MyToolkit = (function() {
             box.stroke({color: 'pink', width: 3, linecap: 'round', linejoin: 'round' })
             line.stroke({ color:"silver", width: 2, linecap: 'round', linejoin: 'round' }).fill("white");
             line2.stroke({ color:"silver", width: 2, linecap: 'round', linejoin: 'round' }).fill("white");
-            if(mouseoverEvent != null && check.visible() == true)
+            if(mouseoverEvent != null &amp;&amp; check.visible() == true)
                 mouseoverEvent("Checked - Hover State");
-            else if(mouseoverEvent != null && check.visible() == false)
+            else if(mouseoverEvent != null &amp;&amp; check.visible() == false)
                 mouseoverEvent("Unchecked - Hover State");
         })
         checkBox1.mouseout(function(){
@@ -164,12 +192,12 @@ var MyToolkit = (function() {
                 box.stroke({color: '#BC4E76', width: 3, linecap: 'round', linejoin: 'round' })
                 line.stroke({ color:"#A6C9C6", width: 2, linecap: 'round', linejoin: 'round' }).fill("white");
                 line2.stroke({ color:"#A6C9C6", width: 2, linecap: 'round', linejoin: 'round' }).fill("white");
-                if(mouseoutEvent != null && check.visible() == true)
+                if(mouseoutEvent != null &amp;&amp; check.visible() == true)
                     mouseoutEvent("Checked - Idle State");
             }
             else{
                 box.stroke("silver");
-                if(mouseoutEvent != null && check.visible() == false)
+                if(mouseoutEvent != null &amp;&amp; check.visible() == false)
                     mouseoutEvent("Unchecked - Idle State");
             }
         })
@@ -181,10 +209,10 @@ var MyToolkit = (function() {
                 check.show();
             }
             
-            if(clickEvent != null && check.visible() == true){
+            if(clickEvent != null &amp;&amp; check.visible() == true){
                 clickEvent("Pressed - Checked State")
             }
-            else if(clickEvent != null && check.visible() == false){
+            else if(clickEvent != null &amp;&amp; check.visible() == false){
                 clickEvent("Pressed - Unchecked State")
             }
 
@@ -200,7 +228,7 @@ var MyToolkit = (function() {
                 draw.width(draw.width() + checkbox.width()+100);
             },
             /** Exposes onclick eventHandler
-             * @param  {Object} eventHandler - mouseclick event 
+             * @param  {Object event} eventHandler - mouseclick event 
              */
             onclick: function(eventHandler){
                 clickEvent = eventHandler
@@ -212,13 +240,13 @@ var MyToolkit = (function() {
                 txt.text(text);
             },
             /** Exposes onmouseout eventHandler
-             * @param  {Object} eventHandler - mouseout event
+             * @param  {Object event} eventHandler - mouseout event
              */
             onmouseout: function(eventHandler){
                 mouseoutEvent = eventHandler
             },
             /** Exposes onmouseover eventHandler
-             * @param  {Object} eventHandler - mouseover event
+             * @param  {Object event} eventHandler - mouseover event
              */
             onmouseover: function(eventHandler){
                 mouseoverEvent = eventHandler
@@ -242,7 +270,7 @@ var MyToolkit = (function() {
         button.hide();
 
         // draw and group RadioButtons
-        for (var i = 0; i < r.length; i++){
+        for (var i = 0; i &lt; r.length; i++){
             y+=40
             var outerButton = draw.circle(27).fill('white').stroke({ color:"silver", width: 2, linecap: 'round', linejoin: 'round' }).move(0, y);
             var txt = draw.text(r[i][0]).move(35,y+5);
@@ -271,13 +299,13 @@ var MyToolkit = (function() {
         buttons.map(e => e.node.addEventListener("click", function(){ 
             button.move(e.x()+4, e.y()+4);
             buttonNum += 1
-            if(clickEvent != null && button.y() == e.y()+4)
+            if(clickEvent != null &amp;&amp; button.y() == e.y()+4)
                 clickEvent("Checked - Hover State");
                 console.log(`RadioButton #${buttons.indexOf(e)+1} clicked.`)
         }));
         buttons.map(e => e.node.addEventListener("mouseover", function(){ 
             e.stroke("#67A29C");
-            if(mouseoverEvent != null && button.y() != e.y()+4)
+            if(mouseoverEvent != null &amp;&amp; button.y() != e.y()+4)
                 mouseoverEvent("Unchecked - Hover State");
             else
                 mouseoverEvent("Checked - Hover State");
@@ -286,7 +314,7 @@ var MyToolkit = (function() {
         buttons.map(e => e.node.addEventListener("mouseout", function(){ 
             e.stroke("silver");
             e.fill("white");
-            if(mouseoutEvent != null && button.y() != e.y()+4)
+            if(mouseoutEvent != null &amp;&amp; button.y() != e.y()+4)
                 mouseoutEvent("Unchecked - Idle State");
             else
                 mouseoutEvent("Checked - Idle State");
@@ -307,19 +335,19 @@ var MyToolkit = (function() {
                 radioButtons.move(x, y);
             },
             /** Exposes onclick eventHandler
-             * @param  {Object} eventHandler - mouseclick event 
+             * @param  {Object event} eventHandler - mouseclick event 
              */
             onclick: function(eventHandler){
                 clickEvent = eventHandler
             },
             /** Exposes onmouseout eventHandler
-             * @param  {Object} eventHandler - mouseout event 
+             * @param  {Object event} eventHandler - mouseout event 
              */
             onmouseout: function(eventHandler){
                 mouseoutEvent = eventHandler
             },
             /** Exposes onmouseover eventHandler
-             * @param  {Object} eventHandler - mouseover event 
+             * @param  {Object event} eventHandler - mouseover event 
              */
             onmouseover: function(eventHandler){
                 mouseoverEvent = eventHandler
@@ -381,7 +409,7 @@ var MyToolkit = (function() {
                 if (event.keyCode == 8){
                     text.text(text.text().substring(0, text.text().length-1));
                     caret.move(textbox.x() + text.length()+3);
-                    if (text.length() < 180){
+                    if (text.length() &lt; 180){
                         box.size(180, 25);
                     }
                 }   
@@ -422,32 +450,32 @@ var MyToolkit = (function() {
                 move: function(x, y) {
                     textbox.move(x, y);
                 /**Exposes onclick eventHandler
-                 * @param  {Object} eventHandler - mouseclick event
+                 * @param  {Object event} eventHandler - mouseclick event
                  */
                 },
                 onclick: function(eventHandler){
                     clickEvent = eventHandler
                 },
                 /** Logs to console the userInput after pressing Enter key
-                 * @param  {Object} eventHandler - keydown event 
+                 * @param  {Object event} eventHandler - keydown event 
                  */
                 getInput: function(eventHandler){
                     userInput = eventHandler;
                 },
                 /** Exposes keypress eventHandler
-                 * @param  {Object} eventHandler - keydown event 
+                 * @param  {Object event} eventHandler - keydown event 
                  */
                 keypressed: function(eventHandler){
                     keyEvent = eventHandler
                 },
                 /**Exposes onmouseout eventHandler
-                 * @param  {Object} eventHandler - mouseout event 
+                 * @param  {Object event} eventHandler - mouseout event 
                  */
                 onmouseout: function(eventHandler){
                     mouseoutEvent = eventHandler
                 },
                 /**Exposes onmouseover eventHandler
-                 * @param  {Object} eventHandler - mouseover event
+                 * @param  {Object event} eventHandler - mouseover event
                  */
                 onmouseover: function(eventHandler){
                     mouseoverEvent = eventHandler
@@ -550,7 +578,7 @@ var MyToolkit = (function() {
         })
         var clickinterval = 35;
         down.click(function(event){
-            if(thumb.y() < down.y()-50){
+            if(thumb.y() &lt; down.y()-50){
                 thumb.move(thumb.x(),thumb.y()+clickinterval)
             }
         });
@@ -580,7 +608,7 @@ var MyToolkit = (function() {
         //         console.log(thumb.point(event.pageX, event.pageY));
         //         if (event.clientY >thumb.y()){
         //             console.log(thumb.y());
-        //             if(thumb.y()<scroll.height()){
+        //             if(thumb.y()&lt;scroll.height()){
         //                 thumb.dy(thumb.x(),event.clientY+thumb.y())             
         //             }
         //         }
@@ -614,25 +642,25 @@ var MyToolkit = (function() {
                 scrollbar.move(x, y);
             },
             /** Exposes onclick eventHandler
-             * @param  {Object} eventHandler - mouseclick event
+             * @param  {Object event} eventHandler - mouseclick event
              */
             onclick: function(eventHandler){
                 clickEvent = (eventHandler)
             },
             /** Exposes onmouseout eventHandler
-             * @param  {Object} eventHandler - mouseout event
+             * @param  {Object event} eventHandler - mouseout event
              */
             onmouseout: function(eventHandler){
                 mouseoutEvent = eventHandler
             },
             /** Exposes onmouseover eventHandler
-             * @param  {Object} eventHandler - mouseover event
+             * @param  {Object event} eventHandler - mouseover event
              */
             onmouseover: function(eventHandler){
                 mouseoverEvent = eventHandler
             },
             /** Gets y-coordinate of thumb on page
-             * @param  {Object} eventHandler - mouseclick event
+             * @param  {Object event} eventHandler - mouseclick event
              */
             getThumbPosition: function (eventHandler){
                 thumbPosition = eventHandler;
@@ -742,12 +770,12 @@ var MyToolkit = (function() {
                 toggle.mouseover(function(event){
                     toggle.fill("#5075A5").stroke('#5075A5');
                     
-                    if(mouseoverEvent != null && checked == true)
+                    if(mouseoverEvent != null &amp;&amp; checked == true)
                     mouseoverEvent("Checked - Hover State");    
                 });
                 toggle.mouseout(function(event){
                     toggle.fill("#3C587C").stroke('#3C587C');
-                    if(mouseoutEvent != null && checked == true)
+                    if(mouseoutEvent != null &amp;&amp; checked == true)
                     mouseoutEvent("Checked - Idle State");   
                 });
             }
@@ -759,12 +787,12 @@ var MyToolkit = (function() {
                 toggle.mouseover(function(event){
                     toggle.fill("#91AACA").stroke("#91AACA");
                     
-                    if(mouseoverEvent != null && checked == false)
+                    if(mouseoverEvent != null &amp;&amp; checked == false)
                     mouseoverEvent("Unchecked - Hover State");   
                 });
                 toggle.mouseout(function(event){
                     toggle.fill("white").stroke("#91AACA");
-                    if(mouseoutEvent != null && checked == false)
+                    if(mouseoutEvent != null &amp;&amp; checked == false)
                     mouseoutEvent("Unchecked - Idle State");   
                 });
             }
@@ -778,19 +806,19 @@ var MyToolkit = (function() {
                 toggleButton.move(x,y);
             },
             /** Exposes onclick eventHandler 
-             * @param  {Object} eventHandler - mouseclick event
+             * @param  {Object event} eventHandler - mouseclick event
              */
             onclick: function(eventHandler){
                 clickEvent = eventHandler
             },
             /** Exposes onmouseout eventHandler 
-             * @param  {Object} eventHandler - mouseout event 
+             * @param  {Object event} eventHandler - mouseout event 
              */
             onmouseout: function(eventHandler){
                 mouseoutEvent = eventHandler
             },
             /** Exposes onmouseover eventHandler 
-             * @param  {Object} eventHandler - mouseover event
+             * @param  {Object event} eventHandler - mouseover event
              */
             onmouseover: function(eventHandler){
                 mouseoverEvent = eventHandler
@@ -801,4 +829,26 @@ var MyToolkit = (function() {
 return {Button, Checkbox, Radiobuttons, Textbox, Scrollbar, Progressbar, Toggle}
 }());
 
-export{MyToolkit}
+export{MyToolkit}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#getIncrement">getIncrement</a></li><li><a href="global.html#getInput">getInput</a></li><li><a href="global.html#getThumbPosition">getThumbPosition</a></li><li><a href="global.html#getWidth">getWidth</a></li><li><a href="global.html#keypressed">keypressed</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#onclick">onclick</a></li><li><a href="global.html#onmouseout">onmouseout</a></li><li><a href="global.html#onmouseover">onmouseover</a></li><li><a href="global.html#onmouseup">onmouseup</a></li><li><a href="global.html#setColor">setColor</a></li><li><a href="global.html#setIncrement">setIncrement</a></li><li><a href="global.html#setText">setText</a></li><li><a href="global.html#setWidth">setWidth</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu May 20 2021 05:10:11 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
