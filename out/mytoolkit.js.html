@@ -99,7 +99,7 @@ var MyToolkit = (function() {
                 btnGroup.move(x, y);
             },
             /** Exposes mouseclick eventHandler
-             * @param  {Object event} eventHandler - mouseclick event
+             * @param  {Object} eventHandler - mouseclick event
              */
             onclick: function(eventHandler){
                 clickEvent = eventHandler
@@ -121,21 +121,21 @@ var MyToolkit = (function() {
             },
             /**
              *  exposes mouseoutevent eventHandler 
-             * @param  {Object event} eventHandler - mouseout event
+             * @param  {Object} eventHandler - mouseout event
              */
             onmouseout: function(eventHandler){
                 mouseoverEvent = eventHandler;
             },
             /**
              *  exposes onmouseup eventHandler 
-             * @param  {Object event} eventHandler - mouseup event
+             * @param  {Object} eventHandler - mouseup event
              */
             onmouseup: function(eventHandler){
                 mouseoutEvent = eventHandler;
             },
             /**
              *  exposes onmouseover eventHandler 
-             * @param  {Object event} eventHandler - mouseover event
+             * @param  {Object} eventHandler - mouseover event
              */
             onmouseover: function(eventHandler){
                 mouseupEvent = eventHandler;
@@ -228,7 +228,7 @@ var MyToolkit = (function() {
                 draw.width(draw.width() + checkbox.width()+100);
             },
             /** Exposes onclick eventHandler
-             * @param  {Object event} eventHandler - mouseclick event 
+             * @param  {Object} eventHandler - mouseclick event 
              */
             onclick: function(eventHandler){
                 clickEvent = eventHandler
@@ -240,13 +240,13 @@ var MyToolkit = (function() {
                 txt.text(text);
             },
             /** Exposes onmouseout eventHandler
-             * @param  {Object event} eventHandler - mouseout event
+             * @param  {Object} eventHandler - mouseout event
              */
             onmouseout: function(eventHandler){
                 mouseoutEvent = eventHandler
             },
             /** Exposes onmouseover eventHandler
-             * @param  {Object event} eventHandler - mouseover event
+             * @param  {Object} eventHandler - mouseover event
              */
             onmouseover: function(eventHandler){
                 mouseoverEvent = eventHandler
@@ -335,19 +335,19 @@ var MyToolkit = (function() {
                 radioButtons.move(x, y);
             },
             /** Exposes onclick eventHandler
-             * @param  {Object event} eventHandler - mouseclick event 
+             * @param  {Object} eventHandler - mouseclick event 
              */
             onclick: function(eventHandler){
                 clickEvent = eventHandler
             },
             /** Exposes onmouseout eventHandler
-             * @param  {Object event} eventHandler - mouseout event 
+             * @param  {Object} eventHandler - mouseout event 
              */
             onmouseout: function(eventHandler){
                 mouseoutEvent = eventHandler
             },
             /** Exposes onmouseover eventHandler
-             * @param  {Object event} eventHandler - mouseover event 
+             * @param  {Object} eventHandler - mouseover event 
              */
             onmouseover: function(eventHandler){
                 mouseoverEvent = eventHandler
@@ -450,32 +450,32 @@ var MyToolkit = (function() {
                 move: function(x, y) {
                     textbox.move(x, y);
                 /**Exposes onclick eventHandler
-                 * @param  {Object event} eventHandler - mouseclick event
+                 * @param  {Object} eventHandler - mouseclick event
                  */
                 },
                 onclick: function(eventHandler){
                     clickEvent = eventHandler
                 },
                 /** Logs to console the userInput after pressing Enter key
-                 * @param  {Object event} eventHandler - keydown event 
+                 * @param  {Object} eventHandler - keydown event 
                  */
                 getInput: function(eventHandler){
                     userInput = eventHandler;
                 },
                 /** Exposes keypress eventHandler
-                 * @param  {Object event} eventHandler - keydown event 
+                 * @param  {Object} eventHandler - keydown event 
                  */
                 keypressed: function(eventHandler){
                     keyEvent = eventHandler
                 },
                 /**Exposes onmouseout eventHandler
-                 * @param  {Object event} eventHandler - mouseout event 
+                 * @param  {Object} eventHandler - mouseout event 
                  */
                 onmouseout: function(eventHandler){
                     mouseoutEvent = eventHandler
                 },
                 /**Exposes onmouseover eventHandler
-                 * @param  {Object event} eventHandler - mouseover event
+                 * @param  {Object} eventHandler - mouseover event
                  */
                 onmouseover: function(eventHandler){
                     mouseoverEvent = eventHandler
@@ -642,25 +642,25 @@ var MyToolkit = (function() {
                 scrollbar.move(x, y);
             },
             /** Exposes onclick eventHandler
-             * @param  {Object event} eventHandler - mouseclick event
+             * @param  {Object} eventHandler - mouseclick event
              */
             onclick: function(eventHandler){
                 clickEvent = (eventHandler)
             },
             /** Exposes onmouseout eventHandler
-             * @param  {Object event} eventHandler - mouseout event
+             * @param  {Object} eventHandler - mouseout event
              */
             onmouseout: function(eventHandler){
                 mouseoutEvent = eventHandler
             },
             /** Exposes onmouseover eventHandler
-             * @param  {Object event} eventHandler - mouseover event
+             * @param  {Object} eventHandler - mouseover event
              */
             onmouseover: function(eventHandler){
                 mouseoverEvent = eventHandler
             },
             /** Gets y-coordinate of thumb on page
-             * @param  {Object event} eventHandler - mouseclick event
+             * @param  {Object} eventHandler - mouseclick event
              */
             getThumbPosition: function (eventHandler){
                 thumbPosition = eventHandler;
@@ -806,19 +806,19 @@ var MyToolkit = (function() {
                 toggleButton.move(x,y);
             },
             /** Exposes onclick eventHandler 
-             * @param  {Object event} eventHandler - mouseclick event
+             * @param  {Object} eventHandler - mouseclick event
              */
             onclick: function(eventHandler){
                 clickEvent = eventHandler
             },
             /** Exposes onmouseout eventHandler 
-             * @param  {Object event} eventHandler - mouseout event 
+             * @param  {Object} eventHandler - mouseout event 
              */
             onmouseout: function(eventHandler){
                 mouseoutEvent = eventHandler
             },
             /** Exposes onmouseover eventHandler 
-             * @param  {Object event} eventHandler - mouseover event
+             * @param  {Object} eventHandler - mouseover event
              */
             onmouseover: function(eventHandler){
                 mouseoverEvent = eventHandler
@@ -845,7 +845,7 @@ export{MyToolkit}</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu May 20 2021 05:10:11 GMT-0700 (Pacific Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu May 20 2021 05:15:46 GMT-0700 (Pacific Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
