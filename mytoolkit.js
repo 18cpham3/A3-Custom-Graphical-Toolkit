@@ -3,9 +3,10 @@ var draw = SVG().addTo('body').size('100%','100%').height(1500);
 var page = draw.group();
 page.rect(10000,10000).fill('white');
 var MyToolkit = (function() {
-
+    
     var Button = function(){
         // var draw = SVG().addTo('body').size('100%','100%');
+        
         var clickEvent = null
         var mouseoverEvent = null
         var mouseoutEvent = null
@@ -53,17 +54,33 @@ var MyToolkit = (function() {
         })
 
         return {
+            /**
+             * Sets custom text label for button
+             * @param  {string} text
+             */
             setText: function(text){
                 txt.text(text);
                 btn.width();
                 btn.size(txt.length() + 30,35)
             },
+            /**
+             * Sets button x and y coordinate on page
+             * @param  {number} x
+             * @param  {number} y
+             */
             move: function(x, y) {
                 btnGroup.move(x, y);
             },
+            /** exposes onclick eventHandler 
+             * @param  {Object event} eventHandler
+             */
             onclick: function(eventHandler){
                 clickEvent = eventHandler
             }, 
+            /**
+             * Sets button color 
+             * @param  {string} color
+             */
             setColor: function(color){
                 btn.fill(color);
                 btnGroup.mouseout(function(){
@@ -75,15 +92,24 @@ var MyToolkit = (function() {
                     txt.fill(color);
                 })
             },
-            onclick: function(eventHandler){
-                clickEvent = eventHandler;
-            },
+            /**
+             *  exposes mouseoverevent eventHandler 
+             * @param  {Object event} eventHandler
+             */
             onmouseout: function(eventHandler){
                 mouseoverEvent = eventHandler;
             },
+            /**
+             *  exposes onmouseup eventHandler 
+             * @param  {Object event} eventHandler
+             */
             onmouseup: function(eventHandler){
                 mouseoutEvent = eventHandler;
             },
+            /**
+             *  exposes onmouseover eventHandler 
+             * @param  {Object event} eventHandler
+             */
             onmouseover: function(eventHandler){
                 mouseupEvent = eventHandler;
             }
@@ -490,7 +516,7 @@ var MyToolkit = (function() {
         scroll.click(function(event){
             // console.log(event);
             thumb.dy(event.offsetY-thumb.y()-scroll.height()+160);
-            console.log(event);
+            // console.log(event);
             // thumbPosition = event.y();
             // console.log(event.clientY-thumb.y()-scroll.height());
             if(clickEvent != null)
